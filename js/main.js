@@ -11,7 +11,7 @@ TUTORIAS.views.Layout = Backbone.View.extend({
 
 TUTORIAS.views.Login = Backbone.View.extend({
 	el : $("#app"),
-	template :  _.template($("login-template").html()),
+	template :  _.template($("#login-template").html()),
 	events: {
 	  	"submit #form-login" : "login"
 	  },
