@@ -2,8 +2,12 @@
 window.TUTORIAS = {
 	site: "tutorias.medrano.in",
 	views: {},
-	models : {},
-	collections : {},
+	models : {
+		enProceso : {}
+	},
+	collections : {
+		enProceso : {}
+	},
 	token: null
 };
 
@@ -81,6 +85,24 @@ window.TUTORIAS.collections.menus = new (Backbone.Collection.extend({
 
     }));
 
+window.TUTORIAS.models.enProceso.alumno = Backbone.Model.extend({
+    });
+
+window.TUTORIAS.collections.enProceso.alumnos = new (Backbone.Collection.extend({
+        // Reference to this collection's model.
+        model: TUTORIAS.models.enProceso.alumno
+
+    }));
+
+window.TUTORIAS.models.enProceso.grupo = Backbone.Model.extend({
+    });
+
+window.TUTORIAS.collections.enProceso.grupos = new (Backbone.Collection.extend({
+        // Reference to this collection's model.
+        model: TUTORIAS.models.enProceso.grupo
+
+    }));
+
 $(function(){
 		console.log("token " + localStorage["token"]);
 	if(localStorage.getItem("token")){
@@ -94,6 +116,8 @@ $(function(){
 		}
 		$.getJSON(dataurl, function(data, textStatus, jqxhr ){
 			TUTORIAS.collections.menus.add(data.menus);
+			TUTORIAS.collections.enProceso.alumnos.add(data.alumnos);
+			TUTORIAS.collections.enProceso.grupos.add(data.grupos);
 			TUTORIAS.app = new TUTORIAS.views.Layout();
 			TUTORIAS.app.render();
 		}).fail(function( jqxhr, settings, exception ) {
