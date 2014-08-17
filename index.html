@@ -12,8 +12,9 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/app.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
@@ -26,21 +27,50 @@
         <script type="text/template" id="login-template">
         <div id="login-container">
             <form class="form-signin" role="form" action="user/login" method="post" id="form-login">
-            <h2 class="form-signin-heading">Tutorias</h2>
-            <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <h2 class="form-signin-heading text-primary">Tutorias</h2>
+            <input type="email" name="email" class="form-control" placeholder="Correo Electrónico" required autofocus>
+            <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
 
           <div id="loginMsg" class="bg-danger"></div>
           </form>
         </div>
         </script>
 
+        <script type="text/template" id="nav-bar">
+        <div id="navbar" class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#/">Tutorias</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+            <% _.each(menus,function(item){ %>
+                <li class="<%- item.menu %>">
+                    <a href="#/<%- item.menu %>"><%- item.menu %></a>
+                </li>
+                <% }); %>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="user/logout" class="logout">Salir</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        </script>
+        <script type="text/template" id="dashboard-template">
+            <div class="row">
+                <div class="col-md-6"><h4>Alumnos</h4></div>
+                <div class="col-md-6">Grupos</div>
+            </div>
+        </script>
+
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/vendor/bootstrap.js"></script>
         <script src="js/vendor/underscore.js"></script>
         <script src="js/vendor/backbone.js"></script>
+        <script src="js/vendor/jquery.backstretch.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
 
