@@ -8,7 +8,9 @@ window.TUTORIAS = {
         grupo: {}
     },
     collections: {
-        enProceso: {}
+        enProceso: {},
+        grupos: {},
+        alumnos : {}
         
     },
     token: null
@@ -42,7 +44,7 @@ TUTORIAS.views.Grupos = Backbone.View.extend({
     template: _.template($("#grupos-template").html()),
     initialize: function() {
         this.render();
-        TUTORIAS.collections.alumnos.each(this.agregarAlumno, this);
+        TUTORIAS.collections.grupos.each(this.agregarGrupo, this);
     },
     agregarGrupo: function(grupo) {
         var view = new TUTORIAS.views.Grupo({model: grupo});
@@ -58,7 +60,6 @@ TUTORIAS.views.Grupo = Backbone.View.extend({
     className: 'primary',
     template: _.template($("#grupo-activo-template").html()),
     initialize: function() {
-        console.log("Actvo");
         this.listenTo(this.model, 'change', this.render);
     },
     render: function() {
@@ -205,7 +206,7 @@ window.TUTORIAS.models.grupo = Backbone.Model.extend({
 window.TUTORIAS.collections.grupos = new (Backbone.Collection.extend({
     //Reference to this collections's model.
     model: TUTORIAS.models.grupo
-}))
+}));
 window.TUTORIAS.models.alumno = Backbone.Model.extend({
 });
 
