@@ -10,9 +10,6 @@ body {
   border-radius: 6px;
   box-shadow: 0 0 30px black;
 }
-.table-hover > tbody > tr:hover > .active{
-  background-color: #B0C8D9 !important;
-}
 
 .dash-content {  
   background-color: #FFFFFF;

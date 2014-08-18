@@ -34,6 +34,37 @@ TUTORIAS.views.Layout = Backbone.View.extend({
 
 });
 
+TUTORIAS.views.Alumnos = Backbone.View.extend({
+	el : $("#app"),
+	template :  _.template($("#alumnos-template").html()),
+	initialize : function(){
+		this.render();
+		 TUTORIAS.collections.alumnos.each(this.agregarAlumno, this);
+	},
+	agregarAlumno : function(alumno){
+            var view = new TUTORIAS.views.Alumno({model: alumno});
+            this.$("#table-alumnos > tbody").append(view.render().el);
+    },
+	render : function(){
+		this.$el.html(this.template());
+	}
+
+});
+
+TUTORIAS.views.Alumno = Backbone.View.extend({
+	tagName : "tr",
+	className : 'primary',
+	template :  _.template($("#alumno-activo-template").html()),
+	initialize: function() {
+		console.log("Actvo");
+		this.listenTo(this.model, 'change', this.render);
+	},
+	render :  function(){
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	}
+});
+
 TUTORIAS.views.NavBar = Backbone.View.extend({
 	el : $("#nav"),
 	template : _.template($("#nav-bar").html()),
@@ -139,6 +170,15 @@ window.TUTORIAS.collections.enProceso.alumnos = new (Backbone.Collection.extend(
 
     }));
 
+window.TUTORIAS.models.alumno = Backbone.Model.extend({
+    });
+
+window.TUTORIAS.collections.alumnos = new (Backbone.Collection.extend({
+        // Reference to this collection's model.
+        model: TUTORIAS.models.alumno
+
+    }));
+
 window.TUTORIAS.models.enProceso.grupo = Backbone.Model.extend({
     });
 
@@ -147,6 +187,40 @@ window.TUTORIAS.collections.enProceso.grupos = new (Backbone.Collection.extend({
         model: TUTORIAS.models.enProceso.grupo
 
     }));
+
+
+/////////// ROUTER
+
+  window.TUTORIAS.router = Backbone.Router.extend({
+
+    initialize: function() {
+      new TUTORIAS.views.NavBar();
+    },
+  
+    routes: {
+      "":           "home",
+      "home":  		"home",
+      "alumnos": 	"alumnos" 
+    },
+
+    home: function() {
+      TUTORIAS.app =  new TUTORIAS.views.Layout();
+      this.nav("home");
+    },    
+
+    alumnos: function(){
+      TUTORIAS.app = new TUTORIAS.views.Alumnos();
+      this.nav("alumnos");
+    },
+    nav : function(activate){
+      $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li").removeClass("active");
+      $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li." + activate).addClass("active");
+    }
+
+  });
+
+
+  ////////////// INICIO
 
 $(function(){
 		console.log("token " + localStorage["token"]);
@@ -161,9 +235,11 @@ $(function(){
 		}
 		$.getJSON(dataurl, function(data, textStatus, jqxhr ){
 			TUTORIAS.collections.menus.add(data.menus);
+			TUTORIAS.collections.alumnos.add(data.alumnos);
 			TUTORIAS.collections.enProceso.alumnos.add(data.enProceso.alumnos);
 			TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);
-			TUTORIAS.app = new TUTORIAS.views.Layout();
+			new TUTORIAS.router();
+ 			Backbone.history.start();
 		}).fail(function( jqxhr, settings, exception ) {
 		    console.log(exception);
 		});
