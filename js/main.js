@@ -14,6 +14,19 @@ window.TUTORIAS = {
 TUTORIAS.views.Layout = Backbone.View.extend({
 	el : $("#app"),
 	template :  _.template($("#dashboard-template").html()),
+	initialize : function(){
+		this.render();
+		 TUTORIAS.collections.enProceso.alumnos.each(this.agregarAlumno, this);
+		 TUTORIAS.collections.enProceso.grupos.each(this.agregarGrupo, this);
+	},
+	agregarAlumno : function(alumno){
+            var view = new TUTORIAS.views.AlumnoActivo({model: alumno});
+            this.$("#table-alumnos > tbody").append(view.render().el);
+    },
+	agregarGrupo : function(grupo){
+            var view = new TUTORIAS.views.GrupoActivo({model: grupo});
+            this.$("#table-grupos > tbody").append(view.render().el);
+    },
 	render : function(){
 		new TUTORIAS.views.NavBar();
 		this.$el.html(this.template());
@@ -50,6 +63,10 @@ TUTORIAS.views.Login = Backbone.View.extend({
 	events: {
 	  	"submit #form-login" : "login"
 	  },
+	  initialize: function(){
+
+		this.render();
+	},
 	render: function(){
 		this.$el.html(this.template);
   		return this;
@@ -73,6 +90,34 @@ TUTORIAS.views.Login = Backbone.View.extend({
 		}
 	  }
 
+});
+
+TUTORIAS.views.AlumnoActivo = Backbone.View.extend({
+	tagName : "tr",
+	className : 'primary',
+	template :  _.template($("#alumno-activo-template").html()),
+	initialize: function() {
+		console.log("Actvo");
+		this.listenTo(this.model, 'change', this.render);
+	},
+	render :  function(){
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	}
+});
+
+TUTORIAS.views.GrupoActivo = Backbone.View.extend({
+	tagName : "tr",
+	className : 'primary',
+	template :  _.template($("#grupo-activo-template").html()),
+	initialize: function() {
+		console.log("Actvo");
+		this.listenTo(this.model, 'change', this.render);
+	},
+	render :  function(){
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	}
 });
 
 ////////// MODELOS ////////
@@ -116,17 +161,15 @@ $(function(){
 		}
 		$.getJSON(dataurl, function(data, textStatus, jqxhr ){
 			TUTORIAS.collections.menus.add(data.menus);
-			TUTORIAS.collections.enProceso.alumnos.add(data.alumnos);
-			TUTORIAS.collections.enProceso.grupos.add(data.grupos);
+			TUTORIAS.collections.enProceso.alumnos.add(data.enProceso.alumnos);
+			TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);
 			TUTORIAS.app = new TUTORIAS.views.Layout();
-			TUTORIAS.app.render();
 		}).fail(function( jqxhr, settings, exception ) {
 		    console.log(exception);
 		});
 		
 	} else {
 		TUTORIAS.app = new TUTORIAS.views.Login();
-	TUTORIAS.app.render();
 		$.backstretch("img/loginbg.jpg");
 	}
 
