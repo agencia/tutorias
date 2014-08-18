@@ -33,62 +33,6 @@
                 "nombre": "Alfredo Esteban Hernández Dávalos"
                 },
         {
-        "matricula":"UP100180",
-                "nombre": "Alfredo Esteban Hernández Dávalos"
-                },
-        {
-        "matricula":"UP100180",
-                "nombre": "Alfredo Esteban Hernández Dávalos"
-                },
-        {
-        "matricula":"up080575",
-                "nombre": "Fernando Ulises Medrano Hernandez"
-                },
-        {
-        "matricula":"up080575",
-                "nombre": "Fernando Ulises Medrano Hernandez"
-                },
-        {
-        "matricula":"up080575",
-                "nombre": "Fernando Ulises Medrano Hernandez"
-                },
-        {
-        "matricula":"UP100180",
-                "nombre": "Alfredo Esteban Hernández Dávalos"
-                },
-        {
-        "matricula":"up080575",
-                "nombre": "Fernando Ulises Medrano Hernandez"
-                },
-        {
-        "matricula":"up080575",
-                "nombre": "Fernando Ulises Medrano Hernandez"
-                },
-        {
-        "matricula":"up080575",
-                "nombre": "Fernando Ulises Medrano Hernandez"
-                },
-        {
-        "matricula":"UP100180",
-                "nombre": "Alfredo Esteban Hernández Dávalos"
-                },
-        {
-        "matricula":"UP080575",
-                "nombre": "Fernando Ulises Medrano Hernandez"
-                },
-        {
-        "matricula":"UP100569",
-                "nombre": "Miguel Ángel Aguilar Chávez"
-                },
-        {
-        "matricula":"UP100180",
-                "nombre": "Alfredo Esteban Hernández Dávalos"
-                },
-        {
-        "matricula":"UP080575",
-                "nombre": "Fernando Ulises Medrano Hernandez"
-                },
-        {
         "matricula":"UP100569",
                 "nombre": "Miguel Ángel Aguilar Chávez"
                 },

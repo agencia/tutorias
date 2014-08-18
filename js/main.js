@@ -167,7 +167,13 @@ window.TUTORIAS.models.enProceso.alumno = Backbone.Model.extend({
 
 window.TUTORIAS.collections.enProceso.alumnos = new (Backbone.Collection.extend({
         // Reference to this collection's model.
-        model: TUTORIAS.models.enProceso.alumno
+        model: TUTORIAS.models.enProceso.alumno,
+        buscar: function(filtro) {
+		    filtered = this.filter(function(alumno) {
+		      return alumno.get("matricula") === filtro || alumno.get("nombre") === filtro;
+		      });
+		    return filtered;
+		  }
 
     }));
 
