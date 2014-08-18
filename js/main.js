@@ -3,7 +3,8 @@ window.TUTORIAS = {
 	site: "tutorias.medrano.in",
 	views: {},
 	models : {
-		enProceso : {}
+		enProceso : {},
+                alumno: {}
 	},
 	collections : {
 		enProceso : {}
