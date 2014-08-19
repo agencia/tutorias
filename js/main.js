@@ -8,7 +8,9 @@ window.TUTORIAS = {
         grupo: {}
     },
     collections: {
-        enProceso: {}
+        enProceso: {},
+        grupos: {},
+        alumnos : {}
         
     },
     token: null
@@ -59,8 +61,9 @@ TUTORIAS.views.Grupos = Backbone.View.extend({
     el: $("#app"),
     template: _.template($("#grupos-template").html()),
     initialize: function() {
-        this.render();
+        this.render();+
         TUTORIAS.collections.Grupos.each(this.agregarGrupo, this);
+
     },
     agregarGrupo: function(grupo) {
         var view = new TUTORIAS.views.Grupo({model: grupo});
@@ -76,7 +79,6 @@ TUTORIAS.views.Grupo = Backbone.View.extend({
     className: 'primary',
     template: _.template($("#grupo-activo-template").html()),
     initialize: function() {
-        console.log("Actvo");
         this.listenTo(this.model, 'change', this.render);
     },
     render: function() {
@@ -128,7 +130,7 @@ TUTORIAS.views.NavBar = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template({menus: this.collection.toJSON()}));
-        this.$("ul.navbar-right").prepend("<li>" + TUTORIAS.token + "</li>");
+        this.$("ul.navbar-right").prepend("<li><a class='glyphicon glyphicon-user'> " + TUTORIAS.token + "</a></li>");
         console.log(this.collection.toJSON());
     },
     logout: function(event) {
@@ -230,7 +232,7 @@ window.TUTORIAS.models.grupo = Backbone.Model.extend({
 window.TUTORIAS.collections.grupos = new (Backbone.Collection.extend({
     //Reference to this collections's model.
     model: TUTORIAS.models.grupo
-}))
+}));
 window.TUTORIAS.models.alumno = Backbone.Model.extend({
 });
 
@@ -286,6 +288,7 @@ window.TUTORIAS.router = Backbone.Router.extend({
 
 $(function() {
     console.log("token " + localStorage["token"]);
+    TUTORIAS.token = localStorage["token"];
     if (localStorage.getItem("token")) {
         var dataurl = '';
         if (localStorage["token"] == 'docente') {
