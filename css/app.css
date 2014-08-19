@@ -11,6 +11,10 @@ body {
   box-shadow: 0 0 30px black;
 }
 
+ .glyphicon-lg{
+  font-size: 18px;
+ }
+
 .dash-content {  
   background-color: #FFFFFF;
   border-radius: 6px;

@@ -82,6 +82,9 @@
                                     <th>Metrícula</th>
                                     <th>Nombre</th>
                                     <th>Última Tutoria</th>
+                                    <% if(TUTORIAS.token != "docente") { %>
+                                    <th>Opc</th>
+                                    <%}%>
                                 </tr>
                             </thead>
                             <tbody>
@@ -106,6 +109,9 @@
                                     <th>#</th>
                                     <th>Grupo</th>
                                     <th>Última Tutoria</th>
+                                    <% if(TUTORIAS.token != "docente") { %>
+                                    <th>Opc</th>
+                                    <%}%>
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,11 +126,23 @@
             <td><%- matricula %></td>
             <td><%- nombre %></td>
             <td><%- ultima %></td>
+            <% if(TUTORIAS.token != 'docente') { %>
+            <td>
+                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
+                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+                </td>
+            <%}%>
         </script>
         <script type="text/template" id="grupo-activo-template">
             <td><%- idgrupo %></td>
             <td><%- grupo %></td>
             <td><%- ultima %></td>
+            <% if(TUTORIAS.token != 'docente') { %>
+            <td>
+                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
+                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+            </td>
+            <%}%>
         </script>
         <script type="text/template" id="alumnos-template">
             <div class="container">

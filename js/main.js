@@ -294,7 +294,7 @@ $(function() {
         if (localStorage["token"] == 'docente') {
             dataurl = 'js/data/docente.js';
         } else if (localStorage["token"] == 'tutor') {
-            dataurl = 'js/data/tutor.js';
+            dataurl = 'js/data/docente.js';
         } else if (localStorage["token"] == 'administrador') {
             dataurl = 'js/data/administrador.js';
         }
@@ -306,7 +306,7 @@ $(function() {
             TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);
             new TUTORIAS.router();
             Backbone.history.start();
-        }).fail(function(jqxhr, settings, exception) {
+        }).fail(function(jqxhr, settings, exception){
             console.log(exception);
         });
 
