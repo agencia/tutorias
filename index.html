@@ -61,84 +61,152 @@
             </div>
         </script>
         <script type="text/template" id="dashboard-template">
-            <div class="container">
-
+        <div class="container">
             <div class="row">
-            <div class="col-xs-6 dashboard">
-            <div class="dash-content">
-            <h4>
-            Alumnos en Proceso 
-            <a href="#">
-            <span class="glyphicon glyphicon-cloud-download"></span>
-            </a>
-            </h4>
-            <table id="table-alumnos" class="table table-striped table-hover">
-            <thead>
-            <tr>
-            <th>Matrícula</th>
-            <th>Nombre</th>
-            <th>Opciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            </table>
-            </div>
-            </div>
-            <div class="col-xs-6 dashboard">
-            <div class="dash-content">
-            <h4>Grupos en Proceso
-            <a href="#">
-            <span class="glyphicon glyphicon-cloud-download"></span>
-            </a></h4>
-            <table id="table-grupos" class="table table-striped table-hover">
-            <thead>
-            <tr>
-            <th>#</th>
-            <th>Grupo</th>
-            <th>Opciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            </table>
-            </div>
-            </div>
+                <div class="col-xs-6 dashboard">
+                    <div class="dash-content">
+                        <h4>
+                            Alumnos en Proceso 
+                            <a href="#">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                            </a>
+                        </h4>
+                        <div class="input-group">
+                        <input id="buscar-alumno-activo" placeholder="Buscar por matrícula o nombre" class="form-control" />
+                        <span class="input-group-addon">
+        <i class="glyphicon glyphicon-search"></i>
+    </span></div>
+                        <table id="table-alumnos" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Metrícula</th>
+                                    <th>Nombre</th>
+                                    <th>Última Tutoria</th>
+                                    <% if(TUTORIAS.token != "docente") { %>
+                                    <th>Opc</th>
+                                    <%}%>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-6 dashboard">
+                    <div class="dash-content">
+                        <h4>Grupos en Proceso
+                        <a href="#">
+                                <span class="glyphicon glyphicon-cloud-download"></span>
+                            </a></h4>
+                            <div class="input-group">
+                        <input id="buscar-alumno-activo" placeholder="Buscar por nombre" class="form-control" />
+                        <span class="input-group-addon">
+        <i class="glyphicon glyphicon-search"></i>
+    </span></div>
+                            <table id="table-grupos" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Grupo</th>
+                                    <th>Última Tutoria</th>
+                                    <% if(TUTORIAS.token != "docente") { %>
+                                    <th>Opc</th>
+                                    <%}%>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             </div>
         </script>
         <script type="text/template" id="alumno-activo-template">
             <td><%- matricula %></td>
             <td><%- nombre %></td>
-            <td><%- carrera %></td>
+            <td><%- ultima %></td>
+            <% if(TUTORIAS.token != 'docente') { %>
+            <td>
+                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
+                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+                </td>
+            <%}%>
+        </script>
+        <script type="text/template" id="alumno-template">
             <td><%- matricula %></td>
+            <td><%- nombre %></td>
+            <td><%- carrera %></td>
+            <td><%- (ultima ? ultima : '') %></td>
+            <td>
+                <a href="#/solicitar/alumno/<%- matricula %>" class="glyphicon glyphicon-link glyphicon-lg"></a>
+            <% if(TUTORIAS.token != 'docente') { %>
+                <% if(TUTORIAS.token != 'tutor') { %>
+                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
+                <%}%>
+                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+            <%}%>
+                </td>
         </script>
         <script type="text/template" id="grupo-activo-template">
             <td><%- idgrupo %></td>
             <td><%- grupo %></td>
+            <td><%- ultima %></td>
+            <% if(TUTORIAS.token != 'docente') { %>
+            <td>
+                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
+                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+            </td>
+            <%}%>
+        </script>
+
+        <script type="text/template" id="grupo-template">
             <td><%- idgrupo %></td>
+            <td><%- grupo %></td>
+            <td><%- ultima %></td>
+            <td>
+                <a href="#/solicitar/grupo/<%- idgrupo %>" class="glyphicon glyphicon-link glyphicon-lg"></a>
+            <% if(TUTORIAS.token != 'docente') { %>
+                <% if(TUTORIAS.token != 'tutor') { %>
+                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
+                <%}%>
+                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+            <%}%>
+            </td>
         </script>
         <script type="text/template" id="alumnos-template">
             <div class="container">
 
             <div class="col-xs-12 dashboard">
             <div class="dash-content">
-            <h4>Alumnos </h4>
-            <form class="form-horizontal" role="form">
-            <div class="form-group">
-            <label for="inputSearch" class="col-xs-1 control-label">Buscar</label>
-            <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputSearch" placeholder="Matrícula, nombre ó matrícula">
+            <h2>Buscar Alumnos </h2>
+
+            <div class="col-xs-8">
+                <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                </span>
+               <input id="buscar-alumno" placeholder="Buscar por nombre o matrícula" class="form-control" />
+                </div>
             </div>
+            <div class="col-xs-4">
+                <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-filter"></i>
+                </span>
+                <select id="buscar-carrera" class="form-control" >
+                    <option>Todas las carreras</option>
+                </select>
+                </div>
             </div>
-            </form>
-            
+
             <table id="table-alumnos" class="table table-striped table-hover">
             <thead>
             <tr>
             <th>Matrícula</th>
             <th>Alumno</th>
             <th>Carrera</th>
+            <th>Última</th>
             <th>Opciones</th>
             </tr>
             </thead>
@@ -170,6 +238,7 @@
             <tr>
             <th>#</th>
             <th>Grupo</th>
+            <th>Última</th>
             <th>Opciones</th>
             </tr>
             </thead>

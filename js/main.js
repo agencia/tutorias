@@ -19,10 +19,15 @@ window.TUTORIAS = {
 TUTORIAS.views.Layout = Backbone.View.extend({
     el: $("#app"),
     template: _.template($("#dashboard-template").html()),
+    events : {
+    },
     initialize: function() {
         this.render();
-        TUTORIAS.collections.enProceso.alumnos.each(this.agregarAlumno, this);
         TUTORIAS.collections.enProceso.grupos.each(this.agregarGrupo, this);
+        TUTORIAS.collections.enProceso.alumnos.each(this.agregarAlumno, this);
+    },
+    buscar : function(){
+    	var filtro = $("#buscar-alumno-activo").val();
     },
     agregarAlumno: function(alumno) {
         var view = new TUTORIAS.views.AlumnoActivo({model: alumno});
@@ -45,6 +50,7 @@ TUTORIAS.views.Grupos = Backbone.View.extend({
     initialize: function() {
         this.render();
         TUTORIAS.collections.grupos.each(this.agregarGrupo, this);
+
     },
     agregarGrupo: function(grupo) {
         var view = new TUTORIAS.views.Grupo({model: grupo});
@@ -58,7 +64,7 @@ TUTORIAS.views.Grupos = Backbone.View.extend({
 TUTORIAS.views.Grupo = Backbone.View.extend({
     tagName: "tr",
     className: 'primary',
-    template: _.template($("#grupo-activo-template").html()),
+    template: _.template($("#grupo-template").html()),
     initialize: function() {
         this.listenTo(this.model, 'change', this.render);
     },
@@ -88,7 +94,7 @@ TUTORIAS.views.Alumnos = Backbone.View.extend({
 TUTORIAS.views.Alumno = Backbone.View.extend({
     tagName: "tr",
     className: 'primary',
-    template: _.template($("#alumno-activo-template").html()),
+    template: _.template($("#alumno-template").html()),
     initialize: function() {
         console.log("Actvo");
         this.listenTo(this.model, 'change', this.render);
@@ -111,6 +117,7 @@ TUTORIAS.views.NavBar = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template({menus: this.collection.toJSON()}));
+        this.$("ul.navbar-right").prepend("<li><a class='glyphicon glyphicon-user'> " + TUTORIAS.token + "</a></li>");
         console.log(this.collection.toJSON());
     },
     logout: function(event) {
@@ -197,17 +204,29 @@ window.TUTORIAS.models.enProceso.alumno = Backbone.Model.extend({
 });
 
 window.TUTORIAS.collections.enProceso.alumnos = new (Backbone.Collection.extend({
-    // Reference to this collection's model.
-    model: TUTORIAS.models.enProceso.alumno
+        // Reference to this collection's model.
+        model: TUTORIAS.models.enProceso.alumno,
+        buscar: function(filtro) {
+		    filtered = this.filter(function(alumno) {
+		      return alumno.get("matricula") === filtro || alumno.get("nombre") === filtro;
+		      });
+		    return filtered;
+		  }
 
 }));
 window.TUTORIAS.models.grupo = Backbone.Model.extend({
+	defaults:{
+		"ultima" : ''
+	}
 });
 window.TUTORIAS.collections.grupos = new (Backbone.Collection.extend({
     //Reference to this collections's model.
     model: TUTORIAS.models.grupo
 }));
 window.TUTORIAS.models.alumno = Backbone.Model.extend({
+	defaults:{
+		"ultima" : ''
+	}
 });
 
 window.TUTORIAS.collections.alumnos = new (Backbone.Collection.extend({
@@ -262,24 +281,25 @@ window.TUTORIAS.router = Backbone.Router.extend({
 
 $(function() {
     console.log("token " + localStorage["token"]);
+    TUTORIAS.token = localStorage["token"];
     if (localStorage.getItem("token")) {
         var dataurl = '';
         if (localStorage["token"] == 'docente') {
             dataurl = 'js/data/docente.js';
         } else if (localStorage["token"] == 'tutor') {
-            dataurl = 'js/data/tutor.js';
+            dataurl = 'js/data/docente.js';
         } else if (localStorage["token"] == 'administrador') {
             dataurl = 'js/data/administrador.js';
         }
         $.getJSON(dataurl, function(data, textStatus, jqxhr) {
             TUTORIAS.collections.menus.add(data.menus);
             TUTORIAS.collections.alumnos.add(data.alumnos);
-            TUTORIAS.collections.grupos.add(data.grupos);
+            TUTORIAS.collections.grupos.add(data.enProceso.grupos);
             TUTORIAS.collections.enProceso.alumnos.add(data.enProceso.alumnos);
             TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);
             new TUTORIAS.router();
             Backbone.history.start();
-        }).fail(function(jqxhr, settings, exception) {
+        }).fail(function(jqxhr, settings, exception){
             console.log(exception);
         });
 

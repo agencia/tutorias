@@ -1,0 +1,13 @@
+{
+    "name": "vendor/tutorias",
+    "description": "Description of project tutorias.",
+    "authors": [
+        {
+            "name": "aesteban",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+
+    }
+}

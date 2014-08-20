@@ -11,6 +11,10 @@ body {
   box-shadow: 0 0 30px black;
 }
 
+ .glyphicon-lg{
+  font-size: 18px;
+ }
+
 .dash-content {  
   background-color: #FFFFFF;
   border-radius: 6px;
@@ -67,7 +71,7 @@ div.apartado-container > a > img{
 div.apartado-container > h4{
 	color: #3498db;
 }
-h1, h4 {
+h1, h2, h3, h4 {
 	color: #3498db;
 }
 
