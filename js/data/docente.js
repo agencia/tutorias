@@ -1,4 +1,4 @@
-{
+{ 
 "menus" : [{"menu":"home"}, {"menu":"alumnos"}, {"menu":"grupos"}],
         "carreras" : [
                     {"idcarrera":1,
