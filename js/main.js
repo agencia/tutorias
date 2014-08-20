@@ -23,24 +23,11 @@ TUTORIAS.views.Layout = Backbone.View.extend({
     },
     initialize: function() {
         this.render();
-        this.agregaAlumnos();
         TUTORIAS.collections.enProceso.grupos.each(this.agregarGrupo, this);
+        TUTORIAS.collections.enProceso.alumnos.each(this.agregarAlumno, this);
     },
     buscar : function(){
     	var filtro = $("#buscar-alumno-activo").val();
-    	this.agregaAlumnos(filtro);
-    },
-    agregaAlumnos: function(filtro){
-    	if (filtro){
-	    	this.enProcesoAlumnos = TUTORIAS.collections.enProceso.alumnos.filter(function(alumno){
-	    		console.log(alumno);
-	    		return alumno.get("nombre").toLowerCase().search(filtro.toLowerCase());
-	    	});
-    	} else {
-    		this.enProcesoAlumnos = TUTORIAS.collections.enProceso.alumnos;
-    	}
-    	this.$("#table-alumnos > tbody").empty();
-    	this.enProcesoAlumnos.each(this.agregarAlumno, this);
     },
     agregarAlumno: function(alumno) {
         var view = new TUTORIAS.views.AlumnoActivo({model: alumno});
@@ -61,8 +48,8 @@ TUTORIAS.views.Grupos = Backbone.View.extend({
     el: $("#app"),
     template: _.template($("#grupos-template").html()),
     initialize: function() {
-        this.render();+
-        TUTORIAS.collections.Grupos.each(this.agregarGrupo, this);
+        this.render();
+        TUTORIAS.collections.grupos.each(this.agregarGrupo, this);
 
     },
     agregarGrupo: function(grupo) {
@@ -77,7 +64,7 @@ TUTORIAS.views.Grupos = Backbone.View.extend({
 TUTORIAS.views.Grupo = Backbone.View.extend({
     tagName: "tr",
     className: 'primary',
-    template: _.template($("#grupo-activo-template").html()),
+    template: _.template($("#grupo-template").html()),
     initialize: function() {
         this.listenTo(this.model, 'change', this.render);
     },
@@ -107,7 +94,7 @@ TUTORIAS.views.Alumnos = Backbone.View.extend({
 TUTORIAS.views.Alumno = Backbone.View.extend({
     tagName: "tr",
     className: 'primary',
-    template: _.template($("#alumno-activo-template").html()),
+    template: _.template($("#alumno-template").html()),
     initialize: function() {
         console.log("Actvo");
         this.listenTo(this.model, 'change', this.render);
@@ -228,12 +215,18 @@ window.TUTORIAS.collections.enProceso.alumnos = new (Backbone.Collection.extend(
 
 }));
 window.TUTORIAS.models.grupo = Backbone.Model.extend({
+	defaults:{
+		"ultima" : ''
+	}
 });
 window.TUTORIAS.collections.grupos = new (Backbone.Collection.extend({
     //Reference to this collections's model.
     model: TUTORIAS.models.grupo
 }));
 window.TUTORIAS.models.alumno = Backbone.Model.extend({
+	defaults:{
+		"ultima" : ''
+	}
 });
 
 window.TUTORIAS.collections.alumnos = new (Backbone.Collection.extend({
@@ -301,7 +294,7 @@ $(function() {
         $.getJSON(dataurl, function(data, textStatus, jqxhr) {
             TUTORIAS.collections.menus.add(data.menus);
             TUTORIAS.collections.alumnos.add(data.alumnos);
-            TUTORIAS.collections.grupos.add(data.grupos);
+            TUTORIAS.collections.grupos.add(data.enProceso.grupos);
             TUTORIAS.collections.enProceso.alumnos.add(data.enProceso.alumnos);
             TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);
             new TUTORIAS.router();
