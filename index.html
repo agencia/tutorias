@@ -248,6 +248,75 @@
             </div>
             </div>
         </script>
+        
+         <script type="text/template" id="permisos-template">
+
+            <div class="container">
+
+            <div class="col-xs-12 dashboard">
+            <div class="dash-content">
+            <h4>Permisos </h4>
+            <form class="form-horizontal" role="form">
+            <div class="form-group">
+            <label for="inputSearch" class="col-xs-1 control-label">Buscar</label>
+            <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSearch" placeholder="Grupo">
+            </div>
+            </div>
+            </form>
+            <!--Tabla usuarios-->
+            <table id="table-usuarios" class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Nivel</th>
+            <th>Estatus</th>
+            <th>Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+            <!--Tabla posibles usuarios-->
+            <table id="table-posibles-usuarios" class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>            
+            </div>
+            </div>
+            </div>
+        </script>
+        
+        <script type="text/template" id="usuario-template">
+            <td><%- idPersona %></td>
+            <td><%- nombre %></td>
+            <td><%- nivel_usuario %></td>
+            <td><%- activo %></td>
+            <% if(TUTORIAS.token == 'administrador') { %>
+            <td>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Cambiar nivel" href="#/tutoria/permisos/<%- idPersona %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Cambiar estatus" href="#/tutoria/activar/<%- idPersona %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
+            </td>
+            <%}%>
+        </script>
+
+        <script type="text/template" id="posible-usuario-template">
+            <td><%- idPersona %></td>
+            <td><%- nombre %></td>
+            <% if(TUTORIAS.token == 'administrador') { %>
+            <td>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Agregar" href="#/tutoria/agregar/<%- idPersona %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            </td>
+            <%}%>
+        </script>
 
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/vendor/bootstrap.js"></script>

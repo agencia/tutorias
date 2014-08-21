@@ -5,12 +5,16 @@ window.TUTORIAS = {
     models: {
         enProceso: {},
         alumno: {},
-        grupo: {}
+        grupo: {},
+        usuario :{},
+        posibleUsuario:{}
     },
     collections: {
         enProceso: {},
         grupos: {},
-        alumnos: {}
+        alumnos: {},
+        usuarios: {},
+        posiblesUsuarios:{}
 
     },
     token: null
@@ -41,10 +45,68 @@ TUTORIAS.views.Layout = Backbone.View.extend({
         new TUTORIAS.views.NavBar();
         this.$el.html(this.template());
         $(".tooltips").tooltip();
-
     }
-
 });
+
+TUTORIAS.views.Permisos = Backbone.View.extend({
+    el: $("#app"),
+    template: _.template($("#permisos-template").html()),
+    events: {
+    },
+    initialize: function() {
+        this.render();
+        TUTORIAS.collections.usuarios.each(this.agregarUsuario, this);
+        TUTORIAS.collections.posiblesUsuarios.each(this.agregarPosibleUsuario, this);
+    },
+    buscarUsuario: function() {
+        var filtro = $("#buscar-usuario").val();
+    },
+    buscarPosibleUsuario: function() {
+        var filtro = $("#buscar-posible-usuario").val();
+    },
+    agregarUsuario: function(usuario) {
+        var view = new TUTORIAS.views.Usuario({model: usuario});
+        this.$("#table-usuarios > tbody").append(view.render().el);
+    },
+    agregarPosibleUsuario: function(posibleUsuario) {
+        var view = new TUTORIAS.views.posibleUsuario({model: posibleUsuario});
+        this.$("#table-posibles-usuarios > tbody").append(view.render().el);
+    },
+    render: function() {
+        this.$el.html(this.template());
+    }
+});
+
+
+TUTORIAS.views.Usuario = Backbone.View.extend({
+    tagName: "tr",
+    className: 'primary',
+    template: _.template($("#usuario-template").html()),
+    initialize: function() {
+        this.listenTo(this.model, 'change', this.render);
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        $(".tooltips").tooltip();
+        return this;
+    }
+});
+
+TUTORIAS.views.posibleUsuario = Backbone.View.extend({
+    tagName: "tr",
+    className: 'primary',
+    template: _.template($("#posible-usuario-template").html()),
+    initialize: function() {
+        this.listenTo(this.model, 'change', this.render);
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        $(".tooltips").tooltip();
+        return this;
+    }
+});
+
+
 
 TUTORIAS.views.Grupos = Backbone.View.extend({
     el: $("#app"),
@@ -207,6 +269,39 @@ window.TUTORIAS.collections.menus = new (Backbone.Collection.extend({
 
 }));
 
+window.TUTORIAS.models.usuario = Backbone.Model.extend({
+   
+});
+window.TUTORIAS.collections.usuarios = new (Backbone.Collection.extend({
+    // Reference to this collection's model.
+    model: TUTORIAS.models.usuario,
+    buscarUsuario: function(filtro) {
+        filtered = this.filter(function(usuario) {
+            return usuario.get("idPersona") === filtro || usuario.get("nombre") === filtro;
+        });menu
+        return filtered;
+    }
+
+}));
+
+
+window.TUTORIAS.models.posibleUsuario = Backbone.Model.extend({
+   
+});
+window.TUTORIAS.collections.posiblesUsuarios = new (Backbone.Collection.extend({
+    // Reference to this collection's model.
+    model: TUTORIAS.models.posibleUsuario,
+    buscarPosibleUsuario: function(filtro) {
+        filtered = this.filter(function(posibleUsuario) {
+            return posibleUsuario.get("idPersona") === filtro || posibleUsuario.get("nombre") === filtro;
+        });menu
+        return filtered;
+    }
+
+}));
+
+
+
 window.TUTORIAS.models.enProceso.alumno = Backbone.Model.extend({
 });
 
@@ -216,7 +311,7 @@ window.TUTORIAS.collections.enProceso.alumnos = new (Backbone.Collection.extend(
     buscar: function(filtro) {
         filtered = this.filter(function(alumno) {
             return alumno.get("matricula") === filtro || alumno.get("nombre") === filtro;
-        });
+        });menu
         return filtered;
     }
 
@@ -262,7 +357,8 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "": "home",
         "home": "home",
         "alumnos": "alumnos",
-        "grupos": "grupos"
+        "grupos": "grupos",
+        "permisos": "permisos"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
@@ -276,12 +372,18 @@ window.TUTORIAS.router = Backbone.Router.extend({
         TUTORIAS.app = new TUTORIAS.views.Grupos();
         this.nav("grupos");
     },
+    permisos: function() {
+        TUTORIAS.app = new TUTORIAS.views.Permisos();
+        this.nav("permisos");
+    },
     nav: function(activate) {
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li").removeClass("active");
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li." + activate).addClass("active");
     }
 
 });
+
+
 
 
 ////////////// INICIO
@@ -304,10 +406,13 @@ $(function() {
             TUTORIAS.collections.grupos.add(data.enProceso.grupos);
             TUTORIAS.collections.enProceso.alumnos.add(data.enProceso.alumnos);
             TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);
+            TUTORIAS.collections.usuarios.add(data.usuarios);
+            TUTORIAS.collections.posiblesUsuarios.add(data.posiblesUsuarios);
             new TUTORIAS.router();
             Backbone.history.start();
         }).fail(function(jqxhr, settings, exception) {
             console.log(exception);
+            console.log(jqxhr)
         });
 
     } else {
