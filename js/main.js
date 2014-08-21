@@ -10,8 +10,8 @@ window.TUTORIAS = {
     collections: {
         enProceso: {},
         grupos: {},
-        alumnos : {}
-        
+        alumnos: {}
+
     },
     token: null
 };
@@ -19,15 +19,15 @@ window.TUTORIAS = {
 TUTORIAS.views.Layout = Backbone.View.extend({
     el: $("#app"),
     template: _.template($("#dashboard-template").html()),
-    events : {
+    events: {
     },
     initialize: function() {
         this.render();
         TUTORIAS.collections.enProceso.grupos.each(this.agregarGrupo, this);
         TUTORIAS.collections.enProceso.alumnos.each(this.agregarAlumno, this);
     },
-    buscar : function(){
-    	var filtro = $("#buscar-alumno-activo").val();
+    buscar: function() {
+        var filtro = $("#buscar-alumno-activo").val();
     },
     agregarAlumno: function(alumno) {
         var view = new TUTORIAS.views.AlumnoActivo({model: alumno});
@@ -40,6 +40,8 @@ TUTORIAS.views.Layout = Backbone.View.extend({
     render: function() {
         new TUTORIAS.views.NavBar();
         this.$el.html(this.template());
+        $(".tooltips").tooltip();
+
     }
 
 });
@@ -70,6 +72,8 @@ TUTORIAS.views.Grupo = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
+        $(".tooltips").tooltip();
+
         return this;
     }
 });
@@ -101,6 +105,7 @@ TUTORIAS.views.Alumno = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
+        $(".tooltips").tooltip();
         return this;
     }
 });
@@ -172,6 +177,7 @@ TUTORIAS.views.AlumnoActivo = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
+        $(".tooltips").tooltip();
         return this;
     }
 });
@@ -186,6 +192,7 @@ TUTORIAS.views.GrupoActivo = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
+        $(".tooltips").tooltip();
         return this;
     }
 });
@@ -204,29 +211,29 @@ window.TUTORIAS.models.enProceso.alumno = Backbone.Model.extend({
 });
 
 window.TUTORIAS.collections.enProceso.alumnos = new (Backbone.Collection.extend({
-        // Reference to this collection's model.
-        model: TUTORIAS.models.enProceso.alumno,
-        buscar: function(filtro) {
-		    filtered = this.filter(function(alumno) {
-		      return alumno.get("matricula") === filtro || alumno.get("nombre") === filtro;
-		      });
-		    return filtered;
-		  }
+    // Reference to this collection's model.
+    model: TUTORIAS.models.enProceso.alumno,
+    buscar: function(filtro) {
+        filtered = this.filter(function(alumno) {
+            return alumno.get("matricula") === filtro || alumno.get("nombre") === filtro;
+        });
+        return filtered;
+    }
 
 }));
 window.TUTORIAS.models.grupo = Backbone.Model.extend({
-	defaults:{
-		"ultima" : ''
-	}
+    defaults: {
+        "ultima": ''
+    }
 });
 window.TUTORIAS.collections.grupos = new (Backbone.Collection.extend({
     //Reference to this collections's model.
     model: TUTORIAS.models.grupo
 }));
 window.TUTORIAS.models.alumno = Backbone.Model.extend({
-	defaults:{
-		"ultima" : ''
-	}
+    defaults: {
+        "ultima": ''
+    }
 });
 
 window.TUTORIAS.collections.alumnos = new (Backbone.Collection.extend({
@@ -265,7 +272,7 @@ window.TUTORIAS.router = Backbone.Router.extend({
         TUTORIAS.app = new TUTORIAS.views.Alumnos();
         this.nav("alumnos");
     },
-    grupos : function(){
+    grupos: function() {
         TUTORIAS.app = new TUTORIAS.views.Grupos();
         this.nav("grupos");
     },
@@ -299,7 +306,7 @@ $(function() {
             TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);
             new TUTORIAS.router();
             Backbone.history.start();
-        }).fail(function(jqxhr, settings, exception){
+        }).fail(function(jqxhr, settings, exception) {
             console.log(exception);
         });
 
