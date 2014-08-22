@@ -255,7 +255,8 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "": "home",
         "home": "home",
         "alumnos": "alumnos",
-        "grupos": "grupos"
+        "grupos": "grupos",
+        "solicitar/alumno/:matricula" : 'solicitarAlumno'
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
