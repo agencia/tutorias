@@ -1,5 +1,32 @@
 {
-
+"usuarios" :[
+    {
+        "idPersona" : 1,
+        "nombre" : "El Uli",
+        "activo" : 1,
+        "nivel_usuario": 3
+        
+    },   {
+        "idPersona" : 2,
+        "nombre" : "El Ciccio",
+        "activo" : 1,
+        "nivel_usuario": 3
+        
+    }
+    
+],
+"posiblesUsuarios" :[
+    {
+         "idPersona" : 2,
+        "nombre" : "El Ciccio"
+        
+    },   {
+        "idPersona" : 2,
+        "nombre" : "El Ciccio"
+        
+    }
+    
+],
     "grupos" : [
         {
         "idgrupo" : 123123,

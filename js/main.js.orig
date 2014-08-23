@@ -20,28 +20,6 @@ window.TUTORIAS = {
     token: null
 };
 
-TUTORIAS.views.Solicitar= Backbone.View.extend({
-    el: $("#mod"),
-    template: _.template($("#modal-template").html()),
-    templateBody: _.template($("#solicitar-form-template").html()),
-    templateFooter: _.template($("#solicitar-footer-template").html()),
-    modal:{
-        title : 'Solicitar Tutoria Para Alumno'
-    },
-    events: {
-        'click .btnok' : 'solicitar'
-    },
-    initialize : function(){
-        this.render();
-    },
-    render : function(){
-        this.modal.body = this.templateBody({alumno: this.model.toJSON()});
-        this.modal.footer = this.templateFooter();
-        this.$el.html(this.template({modal:this.modal}));
-        this.$("#myModal").modal('show');
-    }
-});
-
 TUTORIAS.views.Layout = Backbone.View.extend({
     el: $("#app"),
     template: _.template($("#dashboard-template").html()),
@@ -176,15 +154,13 @@ TUTORIAS.views.Alumnos = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
     }
+
 });
 
 TUTORIAS.views.Alumno = Backbone.View.extend({
     tagName: "tr",
     className: 'primary',
     template: _.template($("#alumno-template").html()),
-    events : {
-        'click .solicitar' : 'solicitar'
-    },
     initialize: function() {
         console.log("Actvo");
         this.listenTo(this.model, 'change', this.render);
@@ -193,10 +169,6 @@ TUTORIAS.views.Alumno = Backbone.View.extend({
         this.$el.html(this.template(this.model.toJSON()));
         $(".tooltips").tooltip();
         return this;
-    },
-    solicitar:function(e){
-        e.preventDefault();
-        new TUTORIAS.views.Solicitar({model:this.model});
     }
 });
 
@@ -385,9 +357,12 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "": "home",
         "home": "home",
         "alumnos": "alumnos",
-        "solicitar/alumno/:matricula" : 'solicitarAlumno',
         "grupos": "grupos",
+<<<<<<< HEAD
+        "solicitar/alumno/:matricula" : 'solicitarAlumno'
+=======
         "permisos": "permisos"
+>>>>>>> 7a342ce6a948f673026eb5330cc0db81b680e4f4
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();

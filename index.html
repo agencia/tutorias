@@ -21,6 +21,8 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+
+        <div id="mod"></div>
         <div id="nav"></div>
         <div id="app"></div>
 
@@ -36,6 +38,47 @@
             <div id="loginMsg" class="bg-danger"></div>
             </form>
             </div>
+        </script>
+
+        <script type="text/template" id="modal-template">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel"><%- modal.title %></h4>
+              </div>
+              <div class="modal-body" id="myModalBody">
+              <%= modal.body %>
+              </div>
+              <div class="modal-footer" id="myModalFooter">
+              <%= modal.footer %>
+              </div>
+            </div>
+          </div>
+        </div>
+        </script>
+
+        <script type="text/template" id="solicitar-form-template">
+            <div class="row">
+                <div class="col-xs-4" style="text-align:center">
+                    <img src="img/profile.jpg" width="120px" class="img-circle" />
+                    <h4><%- alumno.nombre %></h4>
+                <%- alumno.matricula %> / <%- alumno.carrera %><br />
+                </div>
+                <div class="col-xs-8">
+                <h4>Solicitud</h4>
+                <form>
+                Motivo:<br />
+                <textarea  class="form-control" rows="8"></textarea>
+                </form>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/template" id="solicitar-footer-template">
+        <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
+        <button class="btn btn-success btnok" >Solicitar</button>
         </script>
 
         <script type="text/template" id="nav-bar">
@@ -60,64 +103,64 @@
             </div>
         </script>
         <script type="text/template" id="dashboard-template">
-        <div class="container">
+            <div class="container">
             <div class="row">
-                <div class="col-xs-6 dashboard">
-                    <div class="dash-content">
-                        <h4>
-                            Alumnos en Proceso 
-                            <a href="#">
-                                <span class="glyphicon glyphicon-cloud-download"></span>
-                            </a>
-                        </h4>
-                        <div class="input-group">
-                        <input id="buscar-alumno-activo" placeholder="Buscar por matrícula o nombre" class="form-control" />
-                        <span class="input-group-addon">
-        <i class="glyphicon glyphicon-search"></i>
-    </span></div>
-                        <table id="table-alumnos" class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Metrícula</th>
-                                    <th>Nombre</th>
-                                    <th>Última Tutoria</th>
-                                    <% if(TUTORIAS.token != "docente") { %>
-                                    <th>Opc</th>
-                                    <%}%>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-xs-6 dashboard">
-                    <div class="dash-content">
-                        <h4>Grupos en Proceso
-                        <a href="#">
-                                <span class="glyphicon glyphicon-cloud-download"></span>
-                            </a></h4>
-                            <div class="input-group">
-                        <input id="buscar-alumno-activo" placeholder="Buscar por nombre" class="form-control" />
-                        <span class="input-group-addon">
-        <i class="glyphicon glyphicon-search"></i>
-    </span></div>
-                            <table id="table-grupos" class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Grupo</th>
-                                    <th>Última Tutoria</th>
-                                    <% if(TUTORIAS.token != "docente") { %>
-                                    <th>Opc</th>
-                                    <%}%>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="col-xs-6 dashboard">
+            <div class="dash-content">
+            <h4>
+            Alumnos en Proceso 
+            <a href="#" class="tooltips" data-toogle="tooltip popover" data-placement="right"  title="Descargar reporte de alumnos" data-content="Haga click aqui para descargar">
+            <span class="glyphicon glyphicon-cloud-download"></span>
+            </a>
+            </h4>
+            <div class="input-group">
+            <input id="buscar-alumno-activo" placeholder="Buscar por matrícula o nombre" class="form-control" />
+            <span class="input-group-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            </span></div>
+            <table id="table-alumnos" class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th>Metrícula</th>
+            <th>Nombre</th>
+            <th>Última Tutoria</th>
+            <% if(TUTORIAS.token != "docente") { %>
+            <th>Opc</th>
+            <%}%>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+            </div>
+            </div>
+            <div class="col-xs-6 dashboard">
+            <div class="dash-content">
+            <h4>Grupos en Proceso
+            <a href="#" class="tooltips" data-toogle="tooltip" data-placement="right"  title="Descargar reporte de grupos">
+            <span class="glyphicon glyphicon-cloud-download"></span>
+            </a></h4>
+            <div class="input-group">
+            <input id="buscar-alumno-activo" placeholder="Buscar por nombre" class="form-control" />
+            <span class="input-group-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            </span></div>
+            <table id="table-grupos" class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Grupo</th>
+            <th>Última Tutoria</th>
+            <% if(TUTORIAS.token != "docente") { %>
+            <th>Opc</th>
+            <%}%>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+            </div>
+            </div>
             </div>
             </div>
         </script>
@@ -127,9 +170,9 @@
             <td><%- ultima %></td>
             <% if(TUTORIAS.token != 'docente') { %>
             <td>
-                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
-                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
-                </td>
+            <a data-toogle="tooltip" data-placement="right"  title="Opcion 1" href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            <a data-toogle="tooltip" data-placement="right"  title="Opcion 2"  href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
+            </td>
             <%}%>
         </script>
         <script type="text/template" id="alumno-template">
@@ -138,14 +181,14 @@
             <td><%- carrera %></td>
             <td><%- (ultima ? ultima : '') %></td>
             <td>
-                <a href="#/solicitar/alumno/<%- matricula %>" class="glyphicon glyphicon-link glyphicon-lg"></a>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Solicitar tutoría para alumno" href="#/solicitar/alumno/<%- matricula %>" class="glyphicon glyphicon-link glyphicon-lg tooltips solicitar"></a>
             <% if(TUTORIAS.token != 'docente') { %>
-                <% if(TUTORIAS.token != 'tutor') { %>
-                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
-                <%}%>
-                <a href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+            <% if(TUTORIAS.token != 'tutor') { %>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Opción 2" href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips" ></a> 
             <%}%>
-                </td>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Opción 3" href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
+            <%}%>
+            </td>
         </script>
         <script type="text/template" id="grupo-activo-template">
             <td><%- idgrupo %></td>
@@ -153,8 +196,8 @@
             <td><%- ultima %></td>
             <% if(TUTORIAS.token != 'docente') { %>
             <td>
-                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
-                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Opción 1" href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Opción 2" href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
             </td>
             <%}%>
         </script>
@@ -164,12 +207,12 @@
             <td><%- grupo %></td>
             <td><%- ultima %></td>
             <td>
-                <a href="#/solicitar/grupo/<%- idgrupo %>" class="glyphicon glyphicon-link glyphicon-lg"></a>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Opcion 1" href="#/solicitar/grupo/<%- idgrupo %>" class="glyphicon glyphicon-link glyphicon-lg tooltips"></a>
             <% if(TUTORIAS.token != 'docente') { %>
-                <% if(TUTORIAS.token != 'tutor') { %>
-                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg"></a> 
-                <%}%>
-                <a href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg"></a>
+            <% if(TUTORIAS.token != 'tutor') { %>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Opción 2" href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            <%}%>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Opcion 3" href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
             <%}%>
             </td>
         </script>
@@ -181,22 +224,22 @@
             <h2>Buscar Alumnos </h2>
 
             <div class="col-xs-8">
-                <div class="input-group">
-                <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-search"></i>
-                </span>
-               <input id="buscar-alumno" placeholder="Buscar por nombre o matrícula" class="form-control" />
-                </div>
+            <div class="input-group">
+            <span class="input-group-addon">
+            <i  class="glyphicon glyphicon-search"></i>
+            </span>
+            <input id="buscar-alumno" placeholder="Buscar por nombre o matrícula" class="form-control" />
+            </div>
             </div>
             <div class="col-xs-4">
-                <div class="input-group">
-                <span class="input-group-addon">
-                    <i class="glyphicon glyphicon-filter"></i>
-                </span>
-                <select id="buscar-carrera" class="form-control" >
-                    <option>Todas las carreras</option>
-                </select>
-                </div>
+            <div class="input-group">
+            <span class="input-group-addon">
+            <i class="glyphicon glyphicon-filter"></i>
+            </span>
+            <select id="buscar-carrera" class="form-control" >
+            <option>Todas las carreras</option>
+            </select>
+            </div>
             </div>
 
             <table id="table-alumnos" class="table table-striped table-hover">
@@ -247,6 +290,75 @@
             </div>
             </div>
             </div>
+        </script>
+        
+         <script type="text/template" id="permisos-template">
+
+            <div class="container">
+
+            <div class="col-xs-12 dashboard">
+            <div class="dash-content">
+            <h4>Permisos </h4>
+            <form class="form-horizontal" role="form">
+            <div class="form-group">
+            <label for="inputSearch" class="col-xs-1 control-label">Buscar</label>
+            <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputSearch" placeholder="Grupo">
+            </div>
+            </div>
+            </form>
+            <!--Tabla usuarios-->
+            <table id="table-usuarios" class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Nivel</th>
+            <th>Estatus</th>
+            <th>Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+            <!--Tabla posibles usuarios-->
+            <table id="table-posibles-usuarios" class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>            
+            </div>
+            </div>
+            </div>
+        </script>
+        
+        <script type="text/template" id="usuario-template">
+            <td><%- idPersona %></td>
+            <td><%- nombre %></td>
+            <td><%- nivel_usuario %></td>
+            <td><%- activo %></td>
+            <% if(TUTORIAS.token == 'administrador') { %>
+            <td>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Cambiar nivel" href="#/tutoria/permisos/<%- idPersona %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Cambiar estatus" href="#/tutoria/activar/<%- idPersona %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
+            </td>
+            <%}%>
+        </script>
+
+        <script type="text/template" id="posible-usuario-template">
+            <td><%- idPersona %></td>
+            <td><%- nombre %></td>
+            <% if(TUTORIAS.token == 'administrador') { %>
+            <td>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Agregar" href="#/tutoria/agregar/<%- idPersona %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            </td>
+            <%}%>
         </script>
 
         <script src="js/vendor/jquery.min.js"></script>
