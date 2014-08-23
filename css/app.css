@@ -75,6 +75,10 @@ h1, h2, h3, h4 {
 	color: #3498db;
 }
 
+.saving-label, .ok-saving-label {
+  padding: 5px;
+  padding-right: 20px;
+}
 
 .form-signin {
   max-width: 330px;

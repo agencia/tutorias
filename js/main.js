@@ -39,6 +39,17 @@ TUTORIAS.views.Solicitar= Backbone.View.extend({
         this.modal.footer = this.templateFooter();
         this.$el.html(this.template({modal:this.modal}));
         this.$("#myModal").modal('show');
+    },
+    solicitar:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$("textarea").hide();
+        this.$(".helper-while-saving").html(this.$("textarea").val()).removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
     }
 });
 

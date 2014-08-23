@@ -59,6 +59,37 @@
         </div>
         </script>
 
+        <script type="text/template" id="loader-template">
+        <div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4>Cargando...</h4>
+              </div>
+              <div class="modal-body">
+              Espere mientras sincronizamos su información
+              </div>
+            </div>
+          </div>
+        </div>
+        </script>
+
+        <script type="text/template" id="success-loader-template">
+        <div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4>Transeferencia Exitosa</h4>
+              </div>
+              <div class="modal-body">
+              La operación se ha realizado de manera correcta
+              <button class="close" data-dismiss="modal">Aceptar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </script>
+
         <script type="text/template" id="solicitar-form-template">
             <div class="row">
                 <div class="col-xs-4" style="text-align:center">
@@ -68,10 +99,11 @@
                 </div>
                 <div class="col-xs-8">
                 <h4>Solicitud</h4>
-                <form>
+                <form id="solicitar-form">
                 Motivo:<br />
                 <textarea  class="form-control" rows="8"></textarea>
                 </form>
+                <div class="helper-while-saving hide"></div>
                 </div>
             </div>
         </script>
@@ -79,6 +111,11 @@
         <script type="text/template" id="solicitar-footer-template">
         <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
         <button class="btn btn-success btnok" >Solicitar</button>
+        <div class="hide saving-label bg-primary">Guardando <img src="img/ajax-loader-white.gif" /></div>
+        <div class="hide ok-saving-label bg-info">
+            La solicitud se ha enviado correctamente
+            <button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Aceptar</button>
+        </div>
         </script>
 
         <script type="text/template" id="nav-bar">
