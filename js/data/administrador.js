@@ -483,7 +483,14 @@
 {"menu":"home"},
 {"menu":"alumnos"},
 {"menu":"grupos"},
-{"menu":"permisos"},
+{"menu": {
+            "menu" : "permisos",
+            "submenus": [
+                            {"submenu" : "usuarios"},
+                            {"submenu" :"posibles_usuarios"}
+                        ]
+         }
+},
 {"menu":"dimensiones"}],
         "carreras" : [
                     {"idcarrera":1,

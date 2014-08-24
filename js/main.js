@@ -115,30 +115,43 @@ TUTORIAS.views.Layout = Backbone.View.extend({
     }
 });
 
-TUTORIAS.views.Permisos = Backbone.View.extend({
+TUTORIAS.views.Usuarios = Backbone.View.extend({
     el: $("#app"),
-    template: _.template($("#permisos-template").html()),
+    template: _.template($("#usuarios-template").html()),
     events: {
     },
     initialize: function() {
         this.render();
         TUTORIAS.collections.usuarios.each(this.agregarUsuario, this);
-        TUTORIAS.collections.posiblesUsuarios.each(this.agregarPosibleUsuario, this);
     },
     buscarUsuario: function() {
         var filtro = $("#buscar-usuario").val();
-    },
-    buscarPosibleUsuario: function() {
-        var filtro = $("#buscar-posible-usuario").val();
     },
     agregarUsuario: function(usuario) {
         var view = new TUTORIAS.views.Usuario({model: usuario});
         this.$("#table-usuarios > tbody").append(view.render().el);
     },
-    agregarPosibleUsuario: function(posibleUsuario) {
-        var view = new TUTORIAS.views.posibleUsuario({model: posibleUsuario});
-        this.$("#table-posibles-usuarios > tbody").append(view.render().el);
+    render: function() {
+        this.$el.html(this.template());
+    }
+});
+
+TUTORIAS.views.posiblesUsuarios = Backbone.View.extend({
+    el: $("#app"),
+    template: _.template($("#posibles-usuarios-template").html()),
+    events: {
     },
+    initialize: function() {
+        this.render();
+        TUTORIAS.collections.posiblesUsuarios.each(this.agregarPosibleUsuario, this);
+    },
+     buscarPosibleUsuario: function() {
+      var filtro = $("#buscar-posible-usuario").val();
+     },
+     agregarPosibleUsuario: function(posibleUsuario) {
+       var view = new TUTORIAS.views.posibleUsuario({model: posibleUsuario});
+       this.$("#table-posibles-usuarios > tbody").append(view.render().el);
+     },
     render: function() {
         this.$el.html(this.template());
     }
@@ -439,7 +452,8 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "alumnos": "alumnos",
         "solicitar/alumno/:matricula" : 'solicitarAlumno',
         "grupos": "grupos",
-        "permisos": "permisos"
+        "permisos/posibles_usuarios": "posibles_usuarios",
+        "permisos/usuarios": "usuarios"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
@@ -453,11 +467,14 @@ window.TUTORIAS.router = Backbone.Router.extend({
         TUTORIAS.app = new TUTORIAS.views.Grupos();
         this.nav("grupos");
     },
-    permisos: function() {
-        TUTORIAS.app = new TUTORIAS.views.Permisos();
+    posibles_usuarios: function() {
+        TUTORIAS.app = new TUTORIAS.views.posiblesUsuarios();
         this.nav("permisos");
     },
-    nav: function(activate) {
+    usuarios: function() {
+        TUTORIAS.app = new TUTORIAS.views.Usuarios();
+        this.nav("permisos");
+    },    nav: function(activate) {
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li").removeClass("active");
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li." + activate).addClass("active");
     }
