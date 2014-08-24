@@ -97,10 +97,23 @@ TUTORIAS.views.HistorialAlumno = Backbone.View.extend({
         console.log(this.modelAlumno);
         this.modelTutorias = TUTORIAS.collections.tutorias.where({matricula:this.matricula});
         this.render();
+        _.each(this.modelTutorias,this.agregarTutoria);
     },
     render:function(){
-        console.log("render?");
         this.$el.html(this.template({alumno:this.modelAlumno.toJSON()}));
+    },
+    agregarTutoria:function(tutoria){
+        var view = new TUTORIAS.views.HistorialAlumnoTutoria({model:tutoria});
+        this.$("#tbl-historial > tbody").append(view.render().el);
+    }
+});
+
+TUTORIAS.views.HistorialAlumnoTutoria = Backbone.View.extend({
+    tagName : 'tr',
+    template : _.template($("#historial-alumno-tutoria-template").html()),
+    render : function(){
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
     }
 });
 
@@ -560,6 +573,7 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "permisos/usuarios": "usuarios",
         "editar/usuario/:idPersona" : 'editarUsuario',
         "agregar/usuario/:idPersona" : 'editarUsuario',
+        "historial/alumno/:matricula": "historialAlumno"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();

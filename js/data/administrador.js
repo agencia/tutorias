@@ -967,5 +967,25 @@
                 "grupo" : "ELE 3B"
         }
         ]
-}
+},
+"tutorias" : [
+    {
+        "matricula" : "UP90077",
+        "fecha" : "21/08/2014",
+        "id" : 12,
+        "tutor" : "José Ramos"
+    },
+    {
+        "matricula" : "UP90077",
+        "fecha" : "15/08/2014",
+        "id" : 13,
+        "tutor" : "José Ramos"
+    },
+    {
+        "matricula" : "UP90077",
+        "fecha" : "7/08/2014",
+        "id" : 14,
+        "tutor" : "José Ramos"
+    }
+]
 }
