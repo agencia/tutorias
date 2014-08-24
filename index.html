@@ -108,6 +108,17 @@
             </div>
         </script>
 
+        <script type="text/template" id="solicitar-grupo-form-template">
+            <h4><%- grupo.grupo %></h4>
+                Última tutoría: <%- grupo.ultima %><br />
+                <form id="solicitar-form">
+                Motivo:<br />
+                <textarea  class="form-control" rows="8"></textarea>
+                </form>
+                <div class="helper-while-saving hide"></div>
+                
+        </script>
+
         <script type="text/template" id="solicitar-footer-template">
         <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
         <button class="btn btn-success btnok" >Solicitar</button>
@@ -133,6 +144,7 @@
             <% }); %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+            <li><p class='navbar-text perfil'><span class=" glyphicon glyphicon-user"></span></p></li>
             <li><a href="user/logout" class="logout">Salir</a></li>
             </ul>
             </div>
@@ -244,7 +256,7 @@
             <td><%- grupo %></td>
             <td><%- ultima %></td>
             <td>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Opcion 1" href="#/solicitar/grupo/<%- idgrupo %>" class="glyphicon glyphicon-link glyphicon-lg tooltips"></a>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Opcion 1" href="#/solicitar/grupo/<%- idgrupo %>" class="glyphicon glyphicon-link glyphicon-lg tooltips solicitar"></a>
             <% if(TUTORIAS.token != 'docente') { %>
             <% if(TUTORIAS.token != 'tutor') { %>
             <a data-toogle="tooltip" data-placement="bottom"  title="Opción 2" href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
@@ -303,15 +315,27 @@
 
             <div class="col-xs-12 dashboard">
             <div class="dash-content">
-            <h4>Grupos </h4>
-            <form class="form-horizontal" role="form">
-            <div class="form-group">
-            <label for="inputSearch" class="col-xs-1 control-label">Buscar</label>
-            <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputSearch" placeholder="Grupo">
+            <h2>Buscar Grupos</h2>
+
+            <div class="col-xs-8">
+            <div class="input-group">
+            <span class="input-group-addon">
+            <i  class="glyphicon glyphicon-search"></i>
+            </span>
+            <input id="buscar-alumno" placeholder="Buscar por grupo" class="form-control" />
             </div>
             </div>
-            </form>
+            <div class="col-xs-4">
+            <div class="input-group">
+            <span class="input-group-addon">
+            <i class="glyphicon glyphicon-filter"></i>
+            </span>
+            <select id="buscar-carrera" class="form-control" >
+            <option>Todas las carreras</option>
+            </select>
+            </div>
+            </div>
+
             <table id="table-grupos" class="table table-striped table-hover">
             <thead>
             <tr>

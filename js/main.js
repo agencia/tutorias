@@ -53,6 +53,40 @@ TUTORIAS.views.Solicitar= Backbone.View.extend({
     }
 });
 
+
+TUTORIAS.views.SolicitarGrupo= Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#solicitar-grupo-form-template").html()),
+    templateFooter: _.template($("#solicitar-footer-template").html()),
+    modal:{
+        title : 'Solicitar Tutoria Para Grupo'
+    },
+    events: {
+        'click .btnok' : 'solicitar'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        this.modal.body = this.templateBody({grupo: this.model.toJSON()});
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    solicitar:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$("textarea").hide();
+        this.$(".helper-while-saving").html(this.$("textarea").val()).removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
+    }
+});
+
 TUTORIAS.views.Layout = Backbone.View.extend({
     el: $("#app"),
     template: _.template($("#dashboard-template").html()),
@@ -162,6 +196,9 @@ TUTORIAS.views.Grupo = Backbone.View.extend({
     tagName: "tr",
     className: 'primary',
     template: _.template($("#grupo-template").html()),
+    events : {
+        'click .solicitar' : 'solicitar'
+    },
     initialize: function() {
         this.listenTo(this.model, 'change', this.render);
     },
@@ -170,6 +207,10 @@ TUTORIAS.views.Grupo = Backbone.View.extend({
         $(".tooltips").tooltip();
 
         return this;
+    },
+    solicitar:function(e){
+        e.preventDefault();
+        new TUTORIAS.views.SolicitarGrupo({model:this.model});
     }
 });
 
@@ -223,8 +264,8 @@ TUTORIAS.views.NavBar = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template({menus: this.collection.toJSON()}));
-        this.$("ul.navbar-right").prepend("<li><a class='glyphicon glyphicon-user'> " + TUTORIAS.token + "</a></li>");
-        console.log(this.collection.toJSON());
+        this.$("ul.navbar-right").find("p.perfil").html(this.$("ul.navbar-right").find("p.perfil").html()+ " " + TUTORIAS.token);
+        //console.log(this.collection.toJSON()); #navbar > div > div.navbar-collapse.collapse > ul.nav.navbar-nav.navbar-right > li:nth-child(1) > p.navbar-text.perfil
     },
     logout: function(event) {
         event.preventDefault();
