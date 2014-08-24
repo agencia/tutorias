@@ -495,10 +495,10 @@ $(function() {
             console.log(exception);
             console.log(jqxhr)
         });
-
     } else {
         TUTORIAS.app = new TUTORIAS.views.Login();
-        $.backstretch("img/loginbg.jpg");
+        var bg = Math.floor(Math.random() * 18);
+        $.backstretch("img/loginbg-" + bg + ".jpg");
     }
 
 
