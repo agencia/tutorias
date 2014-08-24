@@ -20,6 +20,25 @@ window.TUTORIAS = {
     token: null
 };
 
+TUTORIAS.views.HistorialAlumno = Backbone.View.extend({
+    el : $("#app"),
+    matricula : null,
+    template : _.template($("#historial-alumno-template").html()),
+    initialize : function(options){
+        console.log(options);
+        //this.matricula = options.matricula;
+        this.matricula = "UP90077";
+        this.modelAlumno = TUTORIAS.collections.alumnos.findWhere({matricula:this.matricula});
+        console.log(this.modelAlumno);
+        this.modelTutorias = TUTORIAS.collections.tutorias.where({matricula:this.matricula});
+        this.render();
+    },
+    render:function(){
+        console.log("render?");
+        this.$el.html(this.template({alumno:this.modelAlumno.toJSON()}));
+    }
+});
+
 TUTORIAS.views.Solicitar= Backbone.View.extend({
     el: $("#mod"),
     template: _.template($("#modal-template").html()),
@@ -430,6 +449,12 @@ window.TUTORIAS.collections.alumnos = new (Backbone.Collection.extend({
 
 }));
 
+window.TUTORIAS.models.tutoria = Backbone.Model.extend({});
+
+window.TUTORIAS.collections.tutorias = new(Backbone.Collection.extend({
+    model: TUTORIAS.models.tutoria
+}));
+
 window.TUTORIAS.models.enProceso.grupo = Backbone.Model.extend({
 });
 
@@ -450,10 +475,10 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "": "home",
         "home": "home",
         "alumnos": "alumnos",
-        "solicitar/alumno/:matricula" : 'solicitarAlumno',
         "grupos": "grupos",
         "permisos/posibles_usuarios": "posibles_usuarios",
-        "permisos/usuarios": "usuarios"
+        "permisos/usuarios": "usuarios",
+        "historial/alumno/:matricula" : "historialAlumno"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
@@ -474,15 +499,16 @@ window.TUTORIAS.router = Backbone.Router.extend({
     usuarios: function() {
         TUTORIAS.app = new TUTORIAS.views.Usuarios();
         this.nav("permisos");
-    },    nav: function(activate) {
+    },
+    historialAlumno : function(matricula){
+        TUTORIAS.app = new TUTORIAS.views.HistorialAlumno({matricula:matricula});
+    },
+    nav: function(activate) {
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li").removeClass("active");
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li." + activate).addClass("active");
     }
 
 });
-
-
-
 
 ////////////// INICIO
 
@@ -501,6 +527,7 @@ $(function() {
         $.getJSON(dataurl, function(data, textStatus, jqxhr) {
             TUTORIAS.collections.menus.add(data.menus);
             TUTORIAS.collections.alumnos.add(data.alumnos);
+            TUTORIAS.collections.tutorias.add(data.tutorias);
             TUTORIAS.collections.grupos.add(data.enProceso.grupos);
             TUTORIAS.collections.enProceso.alumnos.add(data.enProceso.alumnos);
             TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);

@@ -40,6 +40,21 @@
             </div>
         </script>
 
+        <script type="text/template" id="historial-alumno-template">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-2" style="text-align:center">
+                        <img src="img/profile.jpg" class="img-responsive img-circle" />
+                    <h4><%- alumno.nombre %></h4>
+                <%- alumno.matricula %> / <%- alumno.carrera %><br />
+                    </div>
+                    <div class="col-xs-10">
+                        <h2>Historial del Alumno</h2>
+                    </div>
+                </div>
+            </div>
+        </script>
+
         <script type="text/template" id="modal-template">
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -235,7 +250,7 @@
             <% if(TUTORIAS.token != 'docente') { %>
             <td>
             <a data-toogle="tooltip" data-placement="right"  title="Opcion 1" href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
-            <a data-toogle="tooltip" data-placement="right"  title="Opcion 2"  href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
+            <a data-toogle="tooltip" data-placement="right"  title="Historial"  href="#/historial/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
             </td>
             <%}%>
         </script>

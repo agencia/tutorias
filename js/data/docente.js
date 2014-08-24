@@ -524,5 +524,12 @@
         "nombre": "Chang Livingston",
         "pic": "img/profile.jpg"
 }
+],
+"tutorias" : [
+    {
+        "matricula" : "UP90077",
+        "fecha" : "15/08/2014",
+        "id" : 12
+    }
 ]
 }
