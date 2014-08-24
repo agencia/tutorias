@@ -2,32 +2,57 @@
 "usuarios" :[
     {
         "idPersona" : 1,
-        "nombre" : "El Uli",
-        "activo" : 1,
-        "nivel_usuario": 3
-        
+        "nombre" : "Fernando Ulises Medrano",
+        "activo" : "INACTIVO",
+        "nivel_usuario": "DOCENTE"
     },   
     {
         "idPersona" : 2,
-        "nombre" : "El Ciccio",
-        "activo" : 1,
-        "nivel_usuario": 3
-        
+        "nombre" : "Raúl Gutiérrez",
+        "activo" : "ACTIVO",
+        "nivel_usuario": "TUTOR"
+    },   
+    {
+        "idPersona" : 3,
+        "nombre" : "Adrián Abrego",
+        "activo" : "ACTIVO",
+        "nivel_usuario": "ADMINISTRADOR"
     }
-    
 ],
 "posiblesUsuarios" :[
     {
-         "idPersona" : 2,
-        "nombre" : "El Ciccio"
-        
+         "idPersona" : 1,
+        "nombre" : "Alfredo Esteban Hernández Dávalos"
     },   {
         "idPersona" : 2,
-        "nombre" : "El Ciccio"
-        
+        "nombre" : "Alejandro de Luna Ortega"
     }
-    
 ],
+"dimensiones" :[
+    {
+        "iddimension" : 1,
+        "dimension" : "Psicosocial",
+        "tipo" : "Tutoría individual"
+        
+    },   
+    {
+        "iddimension" : 2,
+        "dimension" : "Psicoafectivo",
+        "tipo" : "Tutoría individual"
+
+    },   
+    {
+        "iddimension" : 3,
+        "dimension" : "Psicocognitivo",
+        "tipo" : "Tutoría individual"
+
+    },   
+    {
+        "iddimension" : 4,
+        "dimension" : "Psicomotor",
+        "tipo" : "Tutoría individual"
+    }
+],        
     "grupos" : [
         {
         "idgrupo" : 123123,

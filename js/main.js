@@ -254,7 +254,6 @@ TUTORIAS.views.posiblesUsuarios = Backbone.View.extend({
     }
 });
 
-
 TUTORIAS.views.Usuario = Backbone.View.extend({
     tagName: "tr",
     className: 'primary',
@@ -297,8 +296,6 @@ TUTORIAS.views.posibleUsuario = Backbone.View.extend({
         new TUTORIAS.views.agregarUsuario({model:this.model});
     }
 });
-
-
 
 TUTORIAS.views.Grupos = Backbone.View.extend({
     el: $("#app"),
@@ -489,7 +486,6 @@ window.TUTORIAS.collections.usuarios = new (Backbone.Collection.extend({
 
 }));
 
-
 window.TUTORIAS.models.posibleUsuario = Backbone.Model.extend({
    
 });
@@ -502,9 +498,7 @@ window.TUTORIAS.collections.posiblesUsuarios = new (Backbone.Collection.extend({
         });menu
         return filtered;
     }
-
 }));
-
 
 
 window.TUTORIAS.models.enProceso.alumno = Backbone.Model.extend({
@@ -639,6 +633,4 @@ $(function() {
         var bg = Math.floor(Math.random() * 18);
         $.backstretch("img/loginbg-" + bg + ".jpg");
     }
-
-
 });
