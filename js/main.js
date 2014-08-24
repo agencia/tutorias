@@ -19,6 +19,71 @@ window.TUTORIAS = {
     },
     token: null
 };
+TUTORIAS.views.editarUsuario = Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#editar-usuario-form-template").html()),
+    templateFooter: _.template($("#editar-usuario-footer-template").html()),
+    modal:{
+        title : 'Editar usuario'
+    },
+    events: {
+        'click .btnok' : 'editarUsuario'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        this.modal.body = this.templateBody({usuario: this.model.toJSON()});
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    editarUsuario:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$("textarea").hide();
+        this.$(".helper-while-saving").html("Informacion nueva usuario...").removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
+    }
+});
+
+TUTORIAS.views.agregarUsuario = Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#agregar-usuario-form-template").html()),
+    templateFooter: _.template($("#agregar-usuario-footer-template").html()),
+    modal:{
+        title : 'Agregar usuario'
+    },
+    events: {
+        'click .btnok' : 'agregarUsuario'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        this.modal.body = this.templateBody({usuario: this.model.toJSON()});
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    agregarUsuario:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$("textarea").hide();
+        this.$(".helper-while-saving").html("Informacion nueva usuario...").removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
+    }
+});
 
 TUTORIAS.views.HistorialAlumno = Backbone.View.extend({
     el : $("#app"),
@@ -184,10 +249,18 @@ TUTORIAS.views.Usuario = Backbone.View.extend({
     initialize: function() {
         this.listenTo(this.model, 'change', this.render);
     },
+    events:{
+    'click .editar-usuario' : 'editarUsuario'
+    },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         $(".tooltips").tooltip();
         return this;
+    },
+    editarUsuario:function(e){
+        e.preventDefault();
+        console.log(this.model);
+        new TUTORIAS.views.editarUsuario({model:this.model});
     }
 });
 
@@ -198,10 +271,17 @@ TUTORIAS.views.posibleUsuario = Backbone.View.extend({
     initialize: function() {
         this.listenTo(this.model, 'change', this.render);
     },
+    events:{
+    'click .agregar-usuario' : 'agregarUsuario'
+    },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         $(".tooltips").tooltip();
         return this;
+    },
+    agregarUsuario:function(e){
+        e.preventDefault();
+        new TUTORIAS.views.agregarUsuario({model:this.model});
     }
 });
 
@@ -478,7 +558,8 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "grupos": "grupos",
         "permisos/posibles_usuarios": "posibles_usuarios",
         "permisos/usuarios": "usuarios",
-        "historial/alumno/:matricula" : "historialAlumno"
+        "editar/usuario/:idPersona" : 'editarUsuario',
+        "agregar/usuario/:idPersona" : 'editarUsuario',
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
