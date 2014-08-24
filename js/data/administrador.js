@@ -6,7 +6,8 @@
         "activo" : 1,
         "nivel_usuario": 3
         
-    },   {
+    },   
+    {
         "idPersona" : 2,
         "nombre" : "El Ciccio",
         "activo" : 1,
