@@ -32,25 +32,25 @@
     {
         "iddimension" : 1,
         "dimension" : "Psicosocial",
-        "tipo" : "Tutoría individual"
+        "tipo" : "Tutoría Individual"
         
     },   
     {
         "iddimension" : 2,
         "dimension" : "Psicoafectivo",
-        "tipo" : "Tutoría individual"
+        "tipo" : "Tutoría Individual"
 
     },   
     {
         "iddimension" : 3,
         "dimension" : "Psicocognitivo",
-        "tipo" : "Tutoría individual"
+        "tipo" : "Tutoría Individual"
 
     },   
     {
         "iddimension" : 4,
         "dimension" : "Psicomotor",
-        "tipo" : "Tutoría individual"
+        "tipo" : "Tutoría Individual"
     },   
     {
         "iddimension" : 5,

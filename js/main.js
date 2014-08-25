@@ -583,6 +583,119 @@ TUTORIAS.views.agregarNuevaDimension = Backbone.View.extend({
     }
 });
 
+TUTORIAS.views.Factores = Backbone.View.extend({
+    el: $("#app"),
+    template: _.template($("#factores-template").html()),
+    events: {
+    'click #agregar-nuevo-factor' : 'agregarNuevoFactor'
+    },
+    initialize: function() {
+        this.render();
+        TUTORIAS.collections.factores.each(this.agregarFactor, this);
+
+    },
+    buscarFactor: function() {
+        var filtro = $("#buscar-factor").val();
+    },
+    agregarFactor: function(factor) {
+        console.log(factor);
+        var view = new TUTORIAS.views.Factor({model: factor});
+        this.$("#table-factores > tbody").append(view.render().el);
+    },
+    agregarNuevoFactor: function(e){
+        e.preventDefault();
+        new TUTORIAS.views.agregarNuevoFactor();
+    },
+    render: function() {
+        this.$el.html(this.template());
+    }
+});
+
+TUTORIAS.views.Factor = Backbone.View.extend({
+    tagName: "tr",
+    className: 'primary',
+    template: _.template($("#factor-template").html()),
+    initialize: function() {
+        this.listenTo(this.model, 'change', this.render);
+    },
+    events:{
+    'click .editar-factor' : 'editarFactor'
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        $(".tooltips").tooltip();
+        return this;
+    },
+    editarFactor:function(e){
+        e.preventDefault();
+        new TUTORIAS.views.editarFactor({model:this.model});
+    }
+});
+
+TUTORIAS.views.agregarNuevoFactor = Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#agregar-factor-form-template").html()),
+    templateFooter: _.template($("#agregar-factor-footer-template").html()),
+    modal:{
+        title : 'Agregar factor'
+    },
+    events: {
+        'click .btnok' : 'agregarNuevoFactor'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        console.log(this.model);
+        this.modal.body = this.templateBody();
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    agregarNuevoFactor:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$(".helper-while-saving").html("Informacion nueva factor...").removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
+    }
+});
+TUTORIAS.views.editarFactor = Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#editar-factor-form-template").html()),
+    templateFooter: _.template($("#editar-factor-footer-template").html()),
+    modal:{
+        title : 'Editar factor'
+    },
+    events: {
+        'click .btnok' : 'editarFactor'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        console.log(this.model);
+        this.modal.body = this.templateBody({factor: this.model.toJSON()});
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    editarFactor:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$(".helper-while-saving").html("Informacion nueva factor...").removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
+    }
+});
 ////////// MODELOS ////////
 window.TUTORIAS.models.menu = Backbone.Model.extend({
 });
@@ -752,7 +865,7 @@ window.TUTORIAS.router = Backbone.Router.extend({
         this.nav("dimensiones");
     },
     factoresDimension : function(iddimension){
-        TUTORIAS.app = new TUTORIAS.views.HistorialAlumno({iddimension:iddimension});
+        TUTORIAS.app = new TUTORIAS.views.Factores({iddimension:iddimension});
     },    
     nav: function(activate) {
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li").removeClass("active");
