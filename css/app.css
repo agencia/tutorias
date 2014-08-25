@@ -62,7 +62,9 @@ input.fileupload {
   border-radius: 6px;
   padding: 10px;
 }
-
+.container.nobg {
+  background-color: transparent !important;
+}
 div.apartado-container{
 	text-align: center;
 	
