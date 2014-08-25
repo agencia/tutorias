@@ -51,8 +51,39 @@
         "iddimension" : 4,
         "dimension" : "Psicomotor",
         "tipo" : "Tutoría individual"
+    },   
+    {
+        "iddimension" : 5,
+        "dimension" : "Actitudinal",
+        "tipo" : "Tutoría Grupal"
+    },   
+    {
+        "iddimension" : 6,
+        "dimension" : "Académica",
+        "tipo" : "Tutoría Grupal"
     }
-],        
+],
+"factores" :[
+    {
+        "idfactor" : 1,
+        "factor" : "Vive solo",
+        "iddimension" : 1,
+        "llave" : "Llave"
+        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia",
+        "iddimension" : 1,
+        "llave": "Llave"
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima",
+        "iddimension" : 2,
+        "llave": "Llave"
+    }
+],         
     "grupos" : [
         {
         "idgrupo" : 123123,

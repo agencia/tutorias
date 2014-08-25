@@ -7,14 +7,19 @@ window.TUTORIAS = {
         alumno: {},
         grupo: {},
         usuario :{},
-        posibleUsuario:{}
+        posibleUsuario:{},
+        dimension:{},
+        factor:{}
+        
     },
     collections: {
         enProceso: {},
         grupos: {},
         alumnos: {},
         usuarios: {},
-        posiblesUsuarios:{}
+        posiblesUsuarios:{},
+        dimensiones:{},
+        factores:{}
 
     },
     token: null
@@ -461,6 +466,123 @@ TUTORIAS.views.GrupoActivo = Backbone.View.extend({
     }
 });
 
+TUTORIAS.views.Dimensiones = Backbone.View.extend({
+    el: $("#app"),
+    template: _.template($("#dimensiones-template").html()),
+    events: {
+    'click #agregar-nueva-dimension' : 'agregarNuevaDimension'
+    },
+    initialize: function() {
+        this.render();
+        TUTORIAS.collections.dimensiones.each(this.agregarDimension, this);
+
+    },
+    buscarDimension: function() {
+        var filtro = $("#buscar-dimension").val();
+    },
+    agregarDimension: function(dimension) {
+                        console.log(dimension);
+
+        var view = new TUTORIAS.views.Dimension({model: dimension});
+        this.$("#table-dimensiones > tbody").append(view.render().el);
+    },
+    agregarNuevaDimension: function(e){
+        e.preventDefault();
+        new TUTORIAS.views.agregarNuevaDimension();
+    },
+    render: function() {
+        this.$el.html(this.template());
+    }
+});
+
+TUTORIAS.views.Dimension = Backbone.View.extend({
+    tagName: "tr",
+    className: 'primary',
+    template: _.template($("#dimension-template").html()),
+    initialize: function() {
+        this.listenTo(this.model, 'change', this.render);
+    },
+    events:{
+    'click .editar-dimension' : 'editarDimension'
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+        $(".tooltips").tooltip();
+        return this;
+    },
+    editarDimension:function(e){
+        e.preventDefault();
+        new TUTORIAS.views.editarDimension({model:this.model});
+    }
+});
+
+TUTORIAS.views.editarDimension = Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#editar-dimension-form-template").html()),
+    templateFooter: _.template($("#editar-dimension-footer-template").html()),
+    modal:{
+        title : 'Editar dimension'
+    },
+    events: {
+        'click .btnok' : 'editarDimension'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        this.modal.body = this.templateBody({dimension: this.model.toJSON()});
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    editarDimension:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$("textarea").hide();
+        this.$(".helper-while-saving").html("Informacion nueva dimension...").removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
+    }
+});
+
+TUTORIAS.views.agregarNuevaDimension = Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#agregar-dimension-form-template").html()),
+    templateFooter: _.template($("#agregar-dimension-footer-template").html()),
+    modal:{
+        title : 'Agregar dimension'
+    },
+    events: {
+        'click .btnok' : 'agregarNuevaDimension'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        console.log(this.model);
+        this.modal.body = this.templateBody();
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    agregarNuevaDimension:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$("textarea").hide();
+        this.$(".helper-while-saving").html("Informacion nueva dimension...").removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
+    }
+});
+
 ////////// MODELOS ////////
 window.TUTORIAS.models.menu = Backbone.Model.extend({
 });
@@ -551,6 +673,35 @@ window.TUTORIAS.collections.enProceso.grupos = new (Backbone.Collection.extend({
 
 }));
 
+window.TUTORIAS.models.dimension = Backbone.Model.extend({
+   
+});
+window.TUTORIAS.collections.dimensiones = new (Backbone.Collection.extend({
+    // Reference to this collection's model.
+    model: TUTORIAS.models.dimension,
+    buscarDimension: function(filtro) {
+        filtered = this.filter(function(dimension) {
+            return dimension.get("iddimension") === filtro || dimension.get("dimension") === filtro;
+        });menu
+        return filtered;
+    }
+
+}));
+window.TUTORIAS.models.factor = Backbone.Model.extend({
+   
+});
+
+window.TUTORIAS.collections.factores = new (Backbone.Collection.extend({
+    // Reference to this collection's model.
+    model: TUTORIAS.models.factor,
+    buscarFactor: function(filtro) {
+        filtered = this.filter(function(factor) {
+            return factor.get("idfactor") === filtro || factor.get("factor") === filtro;
+        });menu
+        return filtered;
+    }
+
+}));
 
 /////////// ROUTER
 
@@ -563,11 +714,15 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "home": "home",
         "alumnos": "alumnos",
         "grupos": "grupos",
-        "permisos/posibles_usuarios": "posibles_usuarios",
+        "permisos/posibles_usuarios": "posiblesUsuarios",
         "permisos/usuarios": "usuarios",
         "editar/usuario/:idPersona" : 'editarUsuario',
         "agregar/usuario/:idPersona" : 'editarUsuario',
-        "historial/alumno/:matricula": "historialAlumno"
+        "historial/alumno/:matricula": "historialAlumno",
+        "dimensiones" : "dimensiones",
+        "dimension/factores/:iddimension" : "factoresDimension",
+        "dimension/editar/:iddimension" : "editarDimension",
+        "factor/editar/:idfactor" : "editarFactor"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
@@ -581,7 +736,7 @@ window.TUTORIAS.router = Backbone.Router.extend({
         TUTORIAS.app = new TUTORIAS.views.Grupos();
         this.nav("grupos");
     },
-    posibles_usuarios: function() {
+    posiblesUsuarios: function() {
         TUTORIAS.app = new TUTORIAS.views.posiblesUsuarios();
         this.nav("permisos");
     },
@@ -592,6 +747,13 @@ window.TUTORIAS.router = Backbone.Router.extend({
     historialAlumno : function(matricula){
         TUTORIAS.app = new TUTORIAS.views.HistorialAlumno({matricula:matricula});
     },
+    dimensiones : function(){
+        TUTORIAS.app = new TUTORIAS.views.Dimensiones();
+        this.nav("dimensiones");
+    },
+    factoresDimension : function(iddimension){
+        TUTORIAS.app = new TUTORIAS.views.HistorialAlumno({iddimension:iddimension});
+    },    
     nav: function(activate) {
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li").removeClass("active");
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li." + activate).addClass("active");
@@ -622,6 +784,8 @@ $(function() {
             TUTORIAS.collections.enProceso.grupos.add(data.enProceso.grupos);
             TUTORIAS.collections.usuarios.add(data.usuarios);
             TUTORIAS.collections.posiblesUsuarios.add(data.posiblesUsuarios);
+            TUTORIAS.collections.dimensiones.add(data.dimensiones);
+            TUTORIAS.collections.factores.add(data.factores);
             new TUTORIAS.router();
             Backbone.history.start();
         }).fail(function(jqxhr, settings, exception) {

@@ -579,7 +579,7 @@
             <td><%- activo %></td>
             <% if(TUTORIAS.token == 'administrador') { %>
             <td>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Editar información de usuario" href="#editar/usuario/<%- idPersona %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips editar-usuario"></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Editar información de usuario" href="#editar/usuario/<%- idPersona %>" class="glyphicon glyphicon-pencil glyphicon-lg tooltips editar-usuario"></a> 
             </td>
             <%}%>
         </script>
@@ -589,9 +589,185 @@
             <td><%- nombre %></td>
             <% if(TUTORIAS.token == 'administrador') { %>
             <td>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Agregar usuario" href="#/tutoria/agregar/<%- idPersona %>" class="glyphicon glyphicon-plus glyphicon-lg tooltips agregar-usuario"></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Agregar usuario" href="#/tutoria/agregar/<%- idPersona %>" class="glyphicon glyphicon-plus glyphicon-lg tooltips agregar-usuario"  data-original-title="Agregar usuario"></a> 
             </td>
             <%}%>
+        </script>
+        <script type="text/template" id="dimensiones-template">
+
+            <div class="container">
+
+            <div class="col-xs-12 dashboard">
+            <div class="dash-content">
+            <h2>Dimensiones </h2>
+
+            <div class="col-xs-6">
+            <div class="input-group">
+            <span class="input-group-addon">
+            <i  class="glyphicon glyphicon-search"></i>
+            </span>
+            <input id="buscar-dimension" placeholder="Buscar dimensión por nombre" class="form-control" />
+            </div>
+            </div>
+            <div class="col-xs-4">
+            <div class="input-group">
+            <span class="input-group-addon">
+            <i class="glyphicon glyphicon-filter"></i>
+            </span>
+            <select id="buscar-tipo" class="form-control" >
+            <option>Todos los tipos</option>
+            </select>
+            </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="control-group">
+                <div class="controls">
+                  <button id="agregar-nueva-dimension" name="agregar-nueva-dimension" class="btn btn-primary">Agregar dimensión</button>
+                </div>
+              </div>
+            </div>
+            </form>
+            <!--Tabla dimensiones-->
+            <table id="table-dimensiones" class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Dimensión</th>
+            <th>Tipo</th>
+            <th>Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>           
+            </div>
+            </div>
+            </div>
+        </script>
+        <script type="text/template" id="dimension-template">
+            <td><%- iddimension %></td>
+            <td><%- dimension %></td>
+            <td><%- tipo %></td>
+            <td>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Editar dimensión" href="#/dimension/editar/<%- iddimension %>" class="glyphicon glyphicon-pencil glyphicon-lg tooltips"></a>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Ver factores 3" href="#/dimension/factores/<%- iddimension %>" class="glyphicon glyphicon-list glyphicon-lg tooltips"></a>
+            </td>
+        </script>
+        <script type="text/template" id="agregar-dimension-form-template">
+            <form class="form-horizontal">
+            <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="dimension">Dimension</label>
+                <div class="controls">
+                  <input id="dimension" name="dimension" type="text" placeholder="Nombre de dimensión" class=" form-control input-large" required="">
+               </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="estatus-usuario">Tipo dimension</label>
+              <div class="controls">
+                <select id="tipo-dimension" name="tipo-dimension" class="form-control input-sm">
+                  <option>Tutoría Individual</option>
+                  <option>Tutoría Grupal</option>
+                </select>
+              </div>
+            </div>
+            </fieldset>
+            </form>
+
+            <div class="helper-while-saving hide"></div>
+        </script>
+
+       <script type="text/template" id="agregar-dimension-footer-template">
+            <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
+            <button class="btn btn-success btnok" >Agregar dimension</button>
+            <div class="hide saving-label bg-primary">Guardando <img src="img/ajax-loader-white.gif" /></div>
+            <div class="hide ok-saving-label bg-info">
+            La dimensión ha sido agregada correctamente.
+            <button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Aceptar</button>
+            </div>
+        </script>
+        <script type="text/template" id="editar-dimension-form-template">
+            <form class="form-horizontal">
+            <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="dimension">Dimension</label>
+                <div class="controls">
+                  <input id="dimension" name="dimension" type="text" placeholder="Nombre de dimensión" class="input-large" required="">
+               </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="estatus-usuario">Tipo dimension</label>
+              <div class="controls">
+                <select id="tipo-dimension" name="tipo-dimension" class="form-control input-sm">
+                  <option>Tutoría Individual</option>
+                  <option>Tutoría Grupal</option>
+                </select>
+              </div>
+            </div>
+            </fieldset>
+            </form>
+
+            <div class="helper-while-saving hide"></div>
+        </script>
+       <script type="text/template" id="editar-dimension-footer-template">
+            <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
+            <button class="btn btn-success btnok" >Agregar dimension</button>
+            <div class="hide saving-label bg-primary">Guardando <img src="img/ajax-loader-white.gif" /></div>
+            <div class="hide ok-saving-label bg-info">
+            La dimensión ha sido agregada correctamente.
+            <button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Aceptar</button>
+            </div>
+        </script>        
+        <script type="text/template" id="factores-template">
+
+            <div class="container">
+
+            <div class="col-xs-12 dashboard">
+            <div class="dash-content">
+            <h2>Dimensión Psicosocial</h2>
+            <h3>Factores</h3>
+            <div class="col-xs-8">
+            <div class="input-group">
+            <span class="input-group-addon">
+            <i  class="glyphicon glyphicon-search"></i>
+            </span>
+            <input id="buscar-factor" placeholder="Buscar por factor por nombre" class="form-control" />
+            </div>
+            </div>
+            <div class="col-xs-4">
+            <div class="input-group">
+            <span class="input-group-addon">
+            <i class="glyphicon glyphicon-filter"></i>
+            </span>
+            <select id="buscar-llave" class="form-control" >
+            <option>Todas las llaves</option>
+            </select>
+            </div>
+            </div>
+            </form>
+            <!--Tabla factores-->
+            <table id="table-factores" class="table table-striped table-hover">
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Factor</th>
+            <th>Llave</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>           
+            </div>
+            </div>
+            </div>
+        </script>
+        <script type="text/template" id="factor-template">
+            <td><%- idfactor %></td>
+            <td><%- factor %></td>
+            <td><%- llave %></td>
+            <td>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Editar factor" href="#/factor/editar/<%- idfactor %>" class="glyphicon glyphicon-pencil glyphicon-lg tooltips"></a>
+            </td>
         </script>
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/vendor/bootstrap-tooltip.js"></script>
