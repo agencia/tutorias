@@ -663,7 +663,7 @@
                </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="estatus-usuario">Tipo dimension</label>
+              <label class="control-label" for="tipo-dimension">Tipo dimension</label>
               <div class="controls">
                 <select id="tipo-dimension" name="tipo-dimension" class="form-control input-sm">
                   <option>Tutoría Individual</option>
@@ -689,18 +689,19 @@
         <script type="text/template" id="editar-dimension-form-template">
             <form class="form-horizontal">
             <fieldset>
+            
             <div class="control-group">
                 <label class="control-label" for="dimension">Dimension</label>
                 <div class="controls">
-                  <input id="dimension" name="dimension" type="text" placeholder="Nombre de dimensión" class="form-control input-large" required="">
+                  <input id="dimension" name="dimension" type="text" placeholder="Nombre de dimensión" class="form-control input-large" required="" value="<%- dimension.dimension %>">
                </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="estatus-usuario">Tipo dimension</label>
               <div class="controls">
                 <select id="tipo-dimension" name="tipo-dimension" class="form-control input-sm">
-                  <option>Tutoría Individual</option>
-                  <option>Tutoría Grupal</option>
+                  <option <% if (dimension.tipo == 'Tutoría Individual'){ %> selected <% } %> > Tutoría Individual</option>
+                  <option <% if (dimension.tipo == 'Tutoría Grupal'){ %> selected <% } %> >Tutoría Grupal</option>
                 </select>
               </div>
             </div>
@@ -726,7 +727,7 @@
             <div class="dash-content">
             <h2>Dimensión Psicosocial</h2>
             <h3>Factores</h3>
-            <div class="col-xs-8">
+            <div class="col-xs-6">
             <div class="input-group">
             <span class="input-group-addon">
             <i  class="glyphicon glyphicon-search"></i>
@@ -743,6 +744,13 @@
             <option>Todas las llaves</option>
             </select>
             </div>
+            </div>
+             <div class="col-xs-2">
+              <div class="control-group">
+                <div class="controls">
+                  <button id="agregar-nuevo-factor" name="agregar-nuevo-factor" class="btn btn-primary">Agregar factor</button>
+                </div>
+              </div>
             </div>
             </form>
             <!--Tabla factores-->
@@ -766,8 +774,68 @@
             <td><%- factor %></td>
             <td><%- llave %></td>
             <td>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Editar factor" href="#/factor/editar/<%- idfactor %>" class="glyphicon glyphicon-pencil glyphicon-lg tooltips"></a>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Editar factor" href="#/factor/editar/<%- idfactor %>" class="glyphicon glyphicon-pencil glyphicon-lg tooltips editar-factor"></a>
             </td>
+        </script>
+        <script type="text/template" id="agregar-factor-form-template">
+            <form class="form-horizontal">
+            <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="factor">Factor</label>
+                <div class="controls">
+                  <input id="factor" name="factor" type="text" placeholder="Nombre de factor" class=" form-control input-large"  required="">
+               </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="llave">Llave</label>
+                <div class="controls">
+                  <input id="llave" name="llave" type="text" placeholder="Llave de factor" class=" form-control input-large" required="">
+               </div>
+            </div>                 
+            </fieldset>
+            </form>
+
+            <div class="helper-while-saving hide"></div>
+        </script>
+
+       <script type="text/template" id="agregar-factor-footer-template">
+            <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
+            <button class="btn btn-success btnok" >Agregar factor</button>
+            <div class="hide saving-label bg-primary">Guardando <img src="img/ajax-loader-white.gif" /></div>
+            <div class="hide ok-saving-label bg-info">
+            La dimensión ha sido agregada correctamente.
+            <button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Aceptar</button>
+            </div>
+        </script>
+        <script type="text/template" id="editar-factor-form-template">
+            <form class="form-horizontal">
+            <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="factor">Factor</label>
+                <div class="controls">
+                  <input id="factor" name="factor" type="text" placeholder="Nombre de factor" class=" form-control input-large" value="<%- factor.factor %>" required="">
+               </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="llave">Llave</label>
+                <div class="controls">
+                  <input id="llave" name="llave" type="text" placeholder="Llave de factor" class=" form-control input-large" value="<%- factor.llave %>" required="">
+               </div>
+            </div>                 
+            </fieldset>
+            </form>
+
+            <div class="helper-while-saving hide"></div>
+        </script>
+
+       <script type="text/template" id="editar-factor-footer-template">
+            <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
+            <button class="btn btn-success btnok" >Agregar factor</button>
+            <div class="hide saving-label bg-primary">Guardando <img src="img/ajax-loader-white.gif" /></div>
+            <div class="hide ok-saving-label bg-info">
+            La dimensión ha sido agregada correctamente.
+            <button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Aceptar</button>
+            </div>
         </script>
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/vendor/bootstrap-tooltip.js"></script>
