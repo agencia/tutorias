@@ -58,7 +58,7 @@ input.fileupload {
 }
 
 .container{
-	background-color: #FFFFFF;
+  /*background-color: #FFFFFF;*/
   border-radius: 6px;
   padding: 10px;
 }
@@ -120,5 +120,8 @@ p.perfil{
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+.row-centered {
+    text-align:center;
 }
 

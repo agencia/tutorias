@@ -402,6 +402,17 @@ TUTORIAS.views.NavBar = Backbone.View.extend({
 
 });
 
+TUTORIAS.views.Footer = Backbone.View.extend({
+    el: $("#footer"),
+    template: _.template($("#footer-template").html()),
+    initialize: function() {
+        this.render();
+    },
+    render: function() {
+        this.$el.html(this.template());
+    }
+});
+
 TUTORIAS.views.Login = Backbone.View.extend({
     el: $("#app"),
     template: _.template($("#login-template").html()),
@@ -821,6 +832,8 @@ window.TUTORIAS.collections.factores = new (Backbone.Collection.extend({
 window.TUTORIAS.router = Backbone.Router.extend({
     initialize: function() {
         new TUTORIAS.views.NavBar();
+        new TUTORIAS.views.Footer();
+
     },
     routes: {
         "": "home",
