@@ -110,6 +110,31 @@ TUTORIAS.views.HistorialAlumno = Backbone.View.extend({
     agregarTutoria:function(tutoria){
         var view = new TUTORIAS.views.HistorialAlumnoTutoria({model:tutoria});
         this.$("#tbl-historial > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
+    }
+});
+
+TUTORIAS.views.TutoriaAlumno = Backbone.View.extend({
+    el : $("#app"),
+    matricula : null,
+    template : _.template($("#historial-alumno-template").html()),
+    initialize : function(options){
+        console.log(options);
+        //this.matricula = options.matricula;
+        this.matricula = "UP90077";
+        this.modelAlumno = TUTORIAS.collections.alumnos.findWhere({matricula:this.matricula});
+        console.log(this.modelAlumno);
+        this.modelTutorias = TUTORIAS.collections.tutorias.where({matricula:this.matricula});
+        this.render();
+        _.each(this.modelTutorias,this.agregarTutoria);
+    },
+    render:function(){
+        this.$el.html(this.template({alumno:this.modelAlumno.toJSON()}));
+    },
+    agregarTutoria:function(tutoria){
+        var view = new TUTORIAS.views.HistorialAlumnoTutoria({model:tutoria});
+        this.$("#tbl-historial > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
     }
 });
 
@@ -205,10 +230,12 @@ TUTORIAS.views.Layout = Backbone.View.extend({
     agregarAlumno: function(alumno) {
         var view = new TUTORIAS.views.AlumnoActivo({model: alumno});
         this.$("#table-alumnos > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
     },
     agregarGrupo: function(grupo) {
         var view = new TUTORIAS.views.GrupoActivo({model: grupo});
         this.$("#table-grupos > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
     },
     render: function() {
         new TUTORIAS.views.NavBar();
@@ -232,6 +259,7 @@ TUTORIAS.views.Usuarios = Backbone.View.extend({
     agregarUsuario: function(usuario) {
         var view = new TUTORIAS.views.Usuario({model: usuario});
         this.$("#table-usuarios > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
     },
     render: function() {
         this.$el.html(this.template());
@@ -253,6 +281,7 @@ TUTORIAS.views.posiblesUsuarios = Backbone.View.extend({
      agregarPosibleUsuario: function(posibleUsuario) {
        var view = new TUTORIAS.views.posibleUsuario({model: posibleUsuario});
        this.$("#table-posibles-usuarios > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
      },
     render: function() {
         this.$el.html(this.template());
@@ -271,7 +300,7 @@ TUTORIAS.views.Usuario = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-        $(".tooltips").tooltip();
+
         return this;
     },
     editarUsuario:function(e){
@@ -293,7 +322,6 @@ TUTORIAS.views.posibleUsuario = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-        $(".tooltips").tooltip();
         return this;
     },
     agregarUsuario:function(e){
@@ -313,6 +341,7 @@ TUTORIAS.views.Grupos = Backbone.View.extend({
     agregarGrupo: function(grupo) {
         var view = new TUTORIAS.views.Grupo({model: grupo});
         this.$("#table-grupos > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
     },
     render: function() {
         this.$el.html(this.template());
@@ -331,8 +360,6 @@ TUTORIAS.views.Grupo = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-        $(".tooltips").tooltip();
-
         return this;
     },
     solicitar:function(e){
@@ -351,6 +378,7 @@ TUTORIAS.views.Alumnos = Backbone.View.extend({
     agregarAlumno: function(alumno) {
         var view = new TUTORIAS.views.Alumno({model: alumno});
         this.$("#table-alumnos > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
     },
     render: function() {
         this.$el.html(this.template());
@@ -370,7 +398,6 @@ TUTORIAS.views.Alumno = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-        $(".tooltips").tooltip();
         return this;
     },
     solicitar:function(e){
@@ -441,12 +468,10 @@ TUTORIAS.views.AlumnoActivo = Backbone.View.extend({
     className: 'primary',
     template: _.template($("#alumno-activo-template").html()),
     initialize: function() {
-        console.log("Actvo");
         this.listenTo(this.model, 'change', this.render);
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-        $(".tooltips").tooltip();
         return this;
     }
 });
@@ -456,7 +481,6 @@ TUTORIAS.views.GrupoActivo = Backbone.View.extend({
     className: 'primary',
     template: _.template($("#grupo-activo-template").html()),
     initialize: function() {
-        console.log("Actvo");
         this.listenTo(this.model, 'change', this.render);
     },
     render: function() {
@@ -481,10 +505,9 @@ TUTORIAS.views.Dimensiones = Backbone.View.extend({
         var filtro = $("#buscar-dimension").val();
     },
     agregarDimension: function(dimension) {
-                        console.log(dimension);
-
         var view = new TUTORIAS.views.Dimension({model: dimension});
         this.$("#table-dimensiones > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
     },
     agregarNuevaDimension: function(e){
         e.preventDefault();
@@ -507,7 +530,6 @@ TUTORIAS.views.Dimension = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-        $(".tooltips").tooltip();
         return this;
     },
     editarDimension:function(e){
@@ -601,6 +623,7 @@ TUTORIAS.views.Factores = Backbone.View.extend({
         console.log(factor);
         var view = new TUTORIAS.views.Factor({model: factor});
         this.$("#table-factores > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
     },
     agregarNuevoFactor: function(e){
         e.preventDefault();
@@ -623,7 +646,6 @@ TUTORIAS.views.Factor = Backbone.View.extend({
     },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-        $(".tooltips").tooltip();
         return this;
     },
     editarFactor:function(e){
@@ -827,6 +849,7 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "home": "home",
         "alumnos": "alumnos",
         "grupos": "grupos",
+        "tutorial/alumno/:matricula": "tutoriaAlumno",
         "permisos/posibles_usuarios": "posiblesUsuarios",
         "permisos/usuarios": "usuarios",
         "editar/usuario/:idPersona" : 'editarUsuario',
@@ -859,6 +882,9 @@ window.TUTORIAS.router = Backbone.Router.extend({
     },
     historialAlumno : function(matricula){
         TUTORIAS.app = new TUTORIAS.views.HistorialAlumno({matricula:matricula});
+    },
+    tutoriaAlumno : function(matricula){
+        TUTORIAS.app = new TUTORIAS.views.TutoriaAlumno({matricula:matricula});
     },
     dimensiones : function(){
         TUTORIAS.app = new TUTORIAS.views.Dimensiones();

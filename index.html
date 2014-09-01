@@ -14,6 +14,7 @@
 
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
         <link rel="stylesheet" href="css/app.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
@@ -53,6 +54,10 @@
                         Canalizar
                     </a>
                     <% } %>
+                    <a href="#/tutoria/alumno/<%- alumno.matricula %>" class="btn btn-success btn-block">
+                    <span class="glyphicon glyphicon-comment"></span> &nbsp;&nbsp;
+                        Aplicar Tutoría
+                    </a>
                     </div>
                     <div class="col-xs-10">
                         <h2>Historial del Alumno</h2>
@@ -77,7 +82,7 @@
             <td><%= id %></td>
             <td><%= fecha %></td>
             <td><%= tutor %></td>
-            <td><a href="#/tutoria/print/<%= id %>"><span class="glyphicon glyphicon-print text-primary"></span></a></td>
+            <td><a href="#/tutoria/print/<%= id %>" class="tooltips" data-toogle="tooltip" data-placement="left"  title="Ver / Imprimir tutoría"><span class="glyphicon glyphicon-print text-primary"></span></a></td>
         </script>
 
         <script type="text/template" id="modal-template">
@@ -287,7 +292,7 @@
             <div class="dash-content">
             <h4>
             Alumnos en Proceso 
-            <a href="#" class="tooltips" data-toogle="tooltip popover" data-placement="right"  title="Descargar reporte de alumnos" data-content="Haga click aqui para descargar">
+            <a href="#" class="tooltips" data-toogle="tooltip" data-placement="right"  title="Descargar reporte de alumnos">
             <span class="glyphicon glyphicon-cloud-download"></span>
             </a>
             </h4>
@@ -349,7 +354,7 @@
             <td><%- ultima %></td>
             <% if(TUTORIAS.token != 'docente') { %>
             <td>
-            <a data-toogle="tooltip" data-placement="right"  title="Opcion 1" href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            <a data-toogle="tooltip" data-placement="right"  title="Aplicar Tutoría" href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
             <a data-toogle="tooltip" data-placement="right"  title="Historial"  href="#/historial/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
             </td>
             <%}%>
@@ -836,11 +841,17 @@
             <button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Aceptar</button>
             </div>
         </script>
+
+       <script type="text/template" id="tutoria-alumno-template">
+        <div></div>
+        </script>
+
+
         <script src="js/vendor/jquery.min.js"></script>
-        <script src="js/vendor/bootstrap-tooltip.js"></script>
         <script src="js/vendor/bootstrap.js"></script>
         <script src="js/vendor/underscore.js"></script>
         <script src="js/vendor/backbone.js"></script>
+        <script src="js/vendor/bootstrap-datetimepicker.min.js"></script>
         <script src="js/vendor/jquery.backstretch.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
