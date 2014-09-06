@@ -707,6 +707,18 @@ TUTORIAS.views.editarFactor = Backbone.View.extend({
         },5000);
     }
 });
+
+TUTORIAS.views.Tutoria = Backbone.View.extend({
+    el: $("#app"),
+    template: _.template($("#tutoria-template").html()),
+    initialize: function() {
+        this.render();
+    },
+    render: function() {
+        this.$el.html(this.template());
+    }
+});
+
 ////////// MODELOS ////////
 window.TUTORIAS.models.menu = Backbone.Model.extend({
 });
@@ -848,7 +860,8 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "dimensiones" : "dimensiones",
         "dimension/factores/:iddimension" : "factoresDimension",
         "dimension/editar/:iddimension" : "editarDimension",
-        "factor/editar/:idfactor" : "editarFactor"
+        "factor/editar/:idfactor" : "editarFactor",
+        "aplicar_tutoria/alumno/:matricula": "aplicarTutoria"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
@@ -883,6 +896,9 @@ window.TUTORIAS.router = Backbone.Router.extend({
     nav: function(activate) {
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li").removeClass("active");
         $("#navbar > div > div.navbar-collapse.collapse > ul:nth-child(1) > li." + activate).addClass("active");
+    },
+    aplicarTutoria: function(matricula) {
+        TUTORIAS.app = new TUTORIAS.views.Tutoria({matricula:matricula});
     }
 
 });

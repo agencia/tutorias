@@ -125,3 +125,10 @@ p.perfil{
     text-align:center;
 }
 
+#app .container{
+    background-color: #fff;
+}
+
+#app {
+    margin-bottom: 10px;
+}
