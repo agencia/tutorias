@@ -732,12 +732,16 @@ TUTORIAS.views.editarFactor = Backbone.View.extend({
 
 TUTORIAS.views.Tutoria = Backbone.View.extend({
     el: $("#app"),
+    matricula : null,
     template: _.template($("#tutoria-template").html()),
-    initialize: function() {
+    initialize: function(options) {
+        this.matricula = options.matricula;
+        this.modelAlumno = TUTORIAS.collections.enProceso.alumnos.findWhere({matricula:this.matricula})
+        console.log(this.modelAlumno);
         this.render();
     },
     render: function() {
-        this.$el.html(this.template());
+        this.$el.html(this.template({alumno : this.modelAlumno.toJSON()}));
     }
 });
 
