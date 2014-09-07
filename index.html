@@ -72,7 +72,6 @@
                         <thead>
                             <tr>
                                 <th>SOCIODEMOGRÁFICO</th>
-                               
                             </tr>
                         </thead>
                         <tbody>
@@ -217,7 +216,7 @@
                         Canalizar
                     </a>
                     <% } %>
-                    <a href="#/tutoria/alumno/<%- alumno.matricula %>" class="btn btn-success btn-block">
+                    <a href="#/aplicar_tutoria/alumno/<%- alumno.matricula %>" class="btn btn-success btn-block">
                     <span class="glyphicon glyphicon-comment"></span> &nbsp;&nbsp;
                         Aplicar Tutoría
                     </a>
@@ -517,7 +516,7 @@
             <td><%- ultima %></td>
             <% if(TUTORIAS.token != 'docente') { %>
             <td>
-            <a data-toogle="tooltip" data-placement="right"  title="Aplicar Tutoría" href="#/tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            <a data-toogle="tooltip" data-placement="right"  title="Aplicar Tutoría" href="#/aplicar_tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
             <a data-toogle="tooltip" data-placement="right"  title="Historial"  href="#/historial/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
             </td>
             <%}%>
