@@ -1,5 +1,5 @@
 {
-"dimensiones" : [
+"dimensionesFactores" : [
 {
     "iddimension" : 1,
     "dimension" : "Psicosocial",
@@ -9,29 +9,101 @@
 {
     "iddimension" : 2,
     "dimension" : "Psicoafectivo",
-    "tipo" : "Tutoría Individual"
-
+    "tipo" : "Tutoría Individual",
+    "factores" :[
+    {
+        "idfactor" : 1,
+        "factor" : "Vive solo",
+        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia",
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima",
+    }
+]         
 },   
 {
     "iddimension" : 3,
     "dimension" : "Psicocognitivo",
-    "tipo" : "Tutoría Individual"
+    "tipo" : "Tutoría Individual",
+    "factores" : [
+     {
+        "idfactor" : 1,
+        "factor" : "Vive solo",
+        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia",
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima",
+    }
+    ]
 
 },   
 {
     "iddimension" : 4,
     "dimension" : "Psicomotor",
-    "tipo" : "Tutoría Individual"
+    "tipo" : "Tutoría Individual",
+    "factores" : [
+     {
+        "idfactor" : 1,
+        "factor" : "Vive solo",        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia",
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima",
+    }
+    ]
 },   
 {
     "iddimension" : 5,
     "dimension" : "Actitudinal",
-    "tipo" : "Tutoría Grupal"
+    "tipo" : "Tutoría Grupal",
+    "factores" : [
+     {
+        "idfactor" : 1,
+        "factor" : "Vive solo",
+        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia",
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima",
+    }
+    ]
 },   
 {
     "iddimension" : 6,
     "dimension" : "Académica",
-    "tipo" : "Tutoría Grupal"
+    "tipo" : "Tutoría Grupal",
+    "factores" : [
+     {
+        "idfactor" : 1,
+        "factor" : "Vive solo",        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia",
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima",
+    }
+    ]
 }
 ], 
 "grupos" : [

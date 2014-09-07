@@ -9,7 +9,8 @@ window.TUTORIAS = {
         usuario :{},
         posibleUsuario:{},
         dimension:{},
-        factor:{}
+        factor:{},
+        dimensionFactores:{}
         
     },
     collections: {
@@ -19,8 +20,8 @@ window.TUTORIAS = {
         usuarios: {},
         posiblesUsuarios:{},
         dimensiones:{},
-        factores:{}
-
+        factores:{},
+        dimensionesFactores:{}
     },
     token: null
 };
@@ -732,16 +733,42 @@ TUTORIAS.views.editarFactor = Backbone.View.extend({
 
 TUTORIAS.views.Tutoria = Backbone.View.extend({
     el: $("#app"),
+    //definimos  la matrícula como null
     matricula : null,
+    //template que mandaremos llamar con la vista
     template: _.template($("#tutoria-template").html()),
     initialize: function(options) {
+        //Agarramos la matrícula de que viene desde la url...
         this.matricula = options.matricula;
-        this.modelAlumno = TUTORIAS.collections.enProceso.alumnos.findWhere({matricula:this.matricula})
-        console.log(this.modelAlumno);
+        //agarramos la información del alumno... en el modelo modelAlumno
+        this.modelAlumno = TUTORIAS.collections.enProceso.alumnos.findWhere({matricula:this.matricula});
+        //agarramos todas las dimensiones que sean de tutoría individual
+        this.dimensionesFactores = TUTORIAS.collections.dimensionesFactores.where({tipo : 'Tutoría Individual'});
+        //Los console.log te envían las variables a la consola del navegador para ver qué valor traen..
+        //console.log(this.modelAlumno);
+        console.log(this.dimensionesFactores);        
+        //renderizamos la vista
         this.render();
+        //y ejecutamos este proceso que nos va a recorrer todas las dimensiones para irlas agregando
+        //con la función de abajo agregarDimension
+        _.each(this.dimensionesFactores,this.agregarDimension);
     },
     render: function() {
+        //acá en el render envío el puro alumno ya al template base
         this.$el.html(this.template({alumno : this.modelAlumno.toJSON()}));
+    },
+    // y acá apenas voy a mandar llamar la otra vista de cada dimensión
+    //Recibe cada una de las dimensiones para irlas metiendo a la lista
+    agregarDimension:function(dimension){
+        //var view = new TUTORIAS.views.Dimension({model:dimension});
+        var dim = dimension;
+        console.log(dim.factores);
+        _.each(dim.factores, this.agregarFactor);
+        //this.$("#tbl-dimensiones > tbody").append(view.render().el);
+
+    },
+    agregarFactor:function(factor){
+       alert("Hola")
     }
 });
 
@@ -865,6 +892,15 @@ window.TUTORIAS.collections.factores = new (Backbone.Collection.extend({
 
 }));
 
+window.TUTORIAS.models.dimensionFactores = Backbone.Model.extend({
+   
+});
+window.TUTORIAS.collections.dimensionesFactores = new (Backbone.Collection.extend({
+    // Reference to this collection's model.
+    model: TUTORIAS.models.dimensionFactores
+
+}));
+
 /////////// ROUTER
 
 window.TUTORIAS.router = Backbone.Router.extend({
@@ -948,6 +984,7 @@ $(function() {
             dataurl = 'js/data/administrador.js';
         }
         $.getJSON(dataurl, function(data, textStatus, jqxhr) {
+
             TUTORIAS.collections.menus.add(data.menus);
             TUTORIAS.collections.alumnos.add(data.alumnos);
             TUTORIAS.collections.tutorias.add(data.tutorias);
@@ -958,6 +995,8 @@ $(function() {
             TUTORIAS.collections.posiblesUsuarios.add(data.posiblesUsuarios);
             TUTORIAS.collections.dimensiones.add(data.dimensiones);
             TUTORIAS.collections.factores.add(data.factores);
+            TUTORIAS.collections.dimensionesFactores.add(data.dimensionesFactores);
+
             new TUTORIAS.router();
             Backbone.history.start();
         }).fail(function(jqxhr, settings, exception) {

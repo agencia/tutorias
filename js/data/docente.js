@@ -1,4 +1,111 @@
 { 
+"dimensionesFactores" : [
+{
+    "iddimension" : 1,
+    "dimension" : "Psicosocial",
+    "tipo" : "Tutoría Individual"
+    
+},   
+{
+    "iddimension" : 2,
+    "dimension" : "Psicoafectivo",
+    "tipo" : "Tutoría Individual",
+    "factores" :[
+    {
+        "idfactor" : 1,
+        "factor" : "Vive solo"
+        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia"
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima"
+    }
+]         
+},   
+{
+    "iddimension" : 3,
+    "dimension" : "Psicocognitivo",
+    "tipo" : "Tutoría Individual",
+    "factores" : [
+     {
+        "idfactor" : 1,
+        "factor" : "Vive solo"
+        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia"
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima"
+    }
+    ]
+
+},   
+{
+    "iddimension" : 4,
+    "dimension" : "Psicomotor",
+    "tipo" : "Tutoría Individual",
+    "factores" : [
+     {
+        "idfactor" : 1,
+        "factor" : "Vive solo"       
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia"
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima"
+    }
+    ]
+},   
+{
+    "iddimension" : 5,
+    "dimension" : "Actitudinal",
+    "tipo" : "Tutoría Grupal",
+    "factores" : [
+     {
+        "idfactor" : 1,
+        "factor" : "Vive solo"
+        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia"
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima"
+    }
+    ]
+},   
+{
+    "iddimension" : 6,
+    "dimension" : "Académica",
+    "tipo" : "Tutoría Grupal",
+    "factores" : [
+     {
+        "idfactor" : 1,
+        "factor" : "Vive solo"  
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia"
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima"
+    }
+    ]
+}
+], 
 "menus" : [{"menu":"home"}, {"menu":"alumnos"}, {"menu":"grupos"}],
         "carreras" : [
                     {"idcarrera":1,
