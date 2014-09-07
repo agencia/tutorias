@@ -135,3 +135,5 @@ body {
   padding-top: 100px; 
   padding-bottom: 70px;
 }
+ table { table-layout: fixed; }
+ table th, table td { overflow: hidden; }
