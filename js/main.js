@@ -762,13 +762,13 @@ TUTORIAS.views.Tutoria = Backbone.View.extend({
     agregarDimension:function(dimension){
         //var view = new TUTORIAS.views.Dimension({model:dimension});
         var dim = dimension;
-        console.log(dim.factores);
-        _.each(dim.factores, this.agregarFactor);
+        console.log(dim.get("factores"));
+        _.each(dim.get("factores"), this.agregarFactor);
         //this.$("#tbl-dimensiones > tbody").append(view.render().el);
 
     },
     agregarFactor:function(factor){
-       alert("Hola")
+       console.log(factor)
     }
 });
 
