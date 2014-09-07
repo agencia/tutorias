@@ -131,6 +131,7 @@ p.perfil{
     background-color: #fff;
 }
 
-#app {
-    margin-bottom: 10px;
+body { 
+  padding-top: 100px; 
+  padding-bottom: 70px;
 }
