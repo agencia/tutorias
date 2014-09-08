@@ -3,8 +3,22 @@
 {
     "iddimension" : 1,
     "dimension" : "Psicosocial",
-    "tipo" : "Tutoría Individual"
-    
+    "tipo" : "Tutoría Individual",
+    "factores" :[
+    {
+        "idfactor" : 1,
+        "factor" : "Vive solo 1"
+        
+    },
+    {
+        "idfactor" : 2,
+        "factor" : "Vive con familia 1"
+    },
+    {
+        "idfactor" : 3,
+        "factor" : "Autoestima 1"
+    }
+]   
 },   
 {
     "iddimension" : 2,
@@ -12,17 +26,17 @@
     "tipo" : "Tutoría Individual",
     "factores" :[
     {
-        "idfactor" : 1,
-        "factor" : "Vive solo"
+        "idfactor" : 4,
+        "factor" : "Vive solo 2"
         
     },
     {
-        "idfactor" : 2,
-        "factor" : "Vive con familia"
+        "idfactor" : 5,
+        "factor" : "Vive con familia 2"
     },
     {
-        "idfactor" : 3,
-        "factor" : "Autoestima"
+        "idfactor" : 6,
+        "factor" : "Autoestima 2"
     }
 ]         
 },   
@@ -32,17 +46,17 @@
     "tipo" : "Tutoría Individual",
     "factores" : [
      {
-        "idfactor" : 1,
-        "factor" : "Vive solo"
+        "idfactor" : 7,
+        "factor" : "Vive solo 3"
         
     },
     {
-        "idfactor" : 2,
-        "factor" : "Vive con familia"
+        "idfactor" : 8,
+        "factor" : "Vive con familia 3"
     },
     {
-        "idfactor" : 3,
-        "factor" : "Autoestima"
+        "idfactor" : 9,
+        "factor" : "Autoestima 3"
     }
     ]
 
@@ -53,16 +67,16 @@
     "tipo" : "Tutoría Individual",
     "factores" : [
      {
-        "idfactor" : 1,
-        "factor" : "Vive solo"       
+        "idfactor" : 10,
+        "factor" : "Vive solo 4"       
     },
     {
-        "idfactor" : 2,
-        "factor" : "Vive con familia"
+        "idfactor" : 11,
+        "factor" : "Vive con familia 4"
     },
     {
-        "idfactor" : 3,
-        "factor" : "Autoestima"
+        "idfactor" : 12,
+        "factor" : "Autoestima 4"
     }
     ]
 },   

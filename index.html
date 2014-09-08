@@ -87,14 +87,22 @@
         </div>
         </script>
         
-        <script type="text/template" id="menu-dimension-tutoria-individual-template">
+        <script type="text/template" id="menu-dimension-tutoria-template">
                   <a href="#<%- iddimension %>" role="tab" data-toggle="tab">
                         <%- dimension%>
                   </a>
         </script>
-        <script type="text/template" id="container-dimension-tutoria-individual-template">
+
+        <script type="text/template" id="container-dimension-tutoria-template">
             <%- dimension %>
+            <ul id="lista-factores-dimension-<%- iddimension %>"> </ul>
+
         </script>
+
+        <script type="text/template" id="factor-tutoria-template">
+               <%- factor %>
+        </script>
+        
         <script type="text/template" id="login-template">
             <div id="login-container">
             <form class="form-signin" role="form" action="user/login" method="post" id="form-login">
