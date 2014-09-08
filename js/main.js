@@ -735,9 +735,11 @@ TUTORIAS.views.Tutoria = Backbone.View.extend({
     el: $("#app"),
     //definimos  la matrícula como null
     matricula : null,
+    self : this,
     //template que mandaremos llamar con la vista
     template: _.template($("#tutoria-template").html()),
     initialize: function(options) {
+        self = this;
         //Agarramos la matrícula de que viene desde la url...
         this.matricula = options.matricula;
         //agarramos la información del alumno... en el modelo modelAlumno
@@ -746,7 +748,7 @@ TUTORIAS.views.Tutoria = Backbone.View.extend({
         this.dimensionesFactores = TUTORIAS.collections.dimensionesFactores.where({tipo : 'Tutoría Individual'});
         //Los console.log te envían las variables a la consola del navegador para ver qué valor traen..
         //console.log(this.modelAlumno);
-        console.log(this.dimensionesFactores);        
+        //console.log(this.dimensionesFactores);        
         //renderizamos la vista
         this.render();
         //y ejecutamos este proceso que nos va a recorrer todas las dimensiones para irlas agregando
@@ -755,15 +757,15 @@ TUTORIAS.views.Tutoria = Backbone.View.extend({
     },
     render: function() {
         //acá en el render envío el puro alumno ya al template base
-        this.$el.html(this.template({alumno : this.modelAlumno.toJSON()}));
+        //this.$el.html(this.template({alumno : this.modelAlumno.toJSON()}));
     },
     // y acá apenas voy a mandar llamar la otra vista de cada dimensión
     //Recibe cada una de las dimensiones para irlas metiendo a la lista
     agregarDimension:function(dimension){
         //var view = new TUTORIAS.views.Dimension({model:dimension});
         var dim = dimension;
-        console.log(dim.get("factores"));
-        _.each(dim.get("factores"), this.agregarFactor);
+        //console.log(dim.get("factores"));
+        _.each(dim.get("factores"), self.agregarFactor);
         //this.$("#tbl-dimensiones > tbody").append(view.render().el);
 
     },
