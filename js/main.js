@@ -763,7 +763,7 @@ TUTORIAS.views.Tutoria = Backbone.View.extend({
         //var view = new TUTORIAS.views.Dimension({model:dimension});
         var dim = dimension;
         console.log(dim.get("factores"));
-        _.each(dim.get("factores"), this.agregarFactor);
+        dim.factores.each(this.agregarFactor);
         //this.$("#tbl-dimensiones > tbody").append(view.render().el);
 
     },
