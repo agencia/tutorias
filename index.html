@@ -61,19 +61,11 @@
                 </div>                
                 <br/>
                 <br/>
-                <ul class="nav nav-tabs" role="tablist" id="myTab">
-                  <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
-                  <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
-                  <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
-                  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+                <ul class="nav nav-tabs" role="tablist" id="lista-dimensiones-tutoria-individual">
                 </ul>
-
-                <div class="tab-content">
-                  <div class="tab-pane active" id="home">tab1</div>
-                  <div class="tab-pane" id="profile">tab2</div>
-                  <div class="tab-pane" id="messages">tab3</div>
-                  <div class="tab-pane" id="settings">tab4</div>
+                <div class="tab-content" id="container-dimensiones-tutoria-individual">
                 </div>
+                <!--Ultimos textarea-->
                 <div class="container col-md-12">
                     <!-- Textarea -->
                     <div class="control-group">
@@ -94,7 +86,15 @@
             </div>
         </div>
         </script>
-
+        
+        <script type="text/template" id="menu-dimension-tutoria-individual-template">
+                  <a href="#<%- iddimension %>" role="tab" data-toggle="tab">
+                        <%- dimension%>
+                  </a>
+        </script>
+        <script type="text/template" id="container-dimension-tutoria-individual-template">
+            <%- dimension %>
+        </script>
         <script type="text/template" id="login-template">
             <div id="login-container">
             <form class="form-signin" role="form" action="user/login" method="post" id="form-login">

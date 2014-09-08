@@ -748,7 +748,7 @@ TUTORIAS.views.Tutoria = Backbone.View.extend({
         this.dimensionesFactores = TUTORIAS.collections.dimensionesFactores.where({tipo : 'Tutoría Individual'});
         //Los console.log te envían las variables a la consola del navegador para ver qué valor traen..
         //console.log(this.modelAlumno);
-        //console.log(this.dimensionesFactores);        
+        console.log(this.dimensionesFactores);        
         //renderizamos la vista
         this.render();
         //y ejecutamos este proceso que nos va a recorrer todas las dimensiones para irlas agregando
@@ -757,22 +757,48 @@ TUTORIAS.views.Tutoria = Backbone.View.extend({
     },
     render: function() {
         //acá en el render envío el puro alumno ya al template base
-        //this.$el.html(this.template({alumno : this.modelAlumno.toJSON()}));
+        this.$el.html(this.template({alumno : this.modelAlumno.toJSON()}));
     },
     // y acá apenas voy a mandar llamar la otra vista de cada dimensión
     //Recibe cada una de las dimensiones para irlas metiendo a la lista
     agregarDimension:function(dimension){
-        //var view = new TUTORIAS.views.Dimension({model:dimension});
+        var view_menu = new TUTORIAS.views.menuDimensionTutoriaIndividual({model:dimension});
+        var view_container = new TUTORIAS.views.containerDimensionTutoriaIndividual({model:dimension});
         var dim = dimension;
-        //console.log(dim.get("factores"));
+        console.log(dim);
         _.each(dim.get("factores"), self.agregarFactor);
-        //this.$("#tbl-dimensiones > tbody").append(view.render().el);
 
+        this.$("#lista-dimensiones-tutoria-individual").append(view_menu.render().el);
+        this.$("#container-dimensiones-tutoria-individual").append(view_container.render().el);
     },
     agregarFactor:function(factor){
+
        console.log(factor)
     }
 });
+
+TUTORIAS.views.menuDimensionTutoriaIndividual = Backbone.View.extend({
+    tagName : 'li',
+    template : _.template($("#menu-dimension-tutoria-individual-template").html()),
+    render : function(){
+        console.log(this.model.toJSON());
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+TUTORIAS.views.containerDimensionTutoriaIndividual = Backbone.View.extend({
+    tagName : 'div',
+    className: 'tab-pane',
+    template : _.template($("#container-dimension-tutoria-individual-template").html()),
+    render : function(){
+        console.log(this.model.toJSON());
+        
+       $(this.el).attr('id', this.model.toJSON().iddimension ) ;
+       this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
 
 ////////// MODELOS ////////
 window.TUTORIAS.models.menu = Backbone.Model.extend({
