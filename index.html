@@ -66,22 +66,30 @@
                 <div class="tab-content" id="container-dimensiones-tutoria-individual">
                 </div>
                 <!--Ultimos textarea-->
-                <div class="container col-md-12">
-                    <!-- Textarea -->
-                    <div class="control-group">
-                      <label class="control-label" for="id_problematica">Problemática</label>
-                      <div class="controls">                     
-                        <textarea id="id_problematica" name="id_problematica" class="form-control"></textarea><br>
-                      </div>
-                    </div>
+                <div class="row">
+                    <div class="container col-md-12">
+                        <!-- Textarea -->
+                        <div class="control-group">
+                          <label class="control-label" for="id_problematica">Problemática</label>
+                          <div class="controls">                     
+                            <textarea id="id_problematica" name="id_problematica" class="form-control"></textarea><br>
+                          </div>
+                        </div>
 
-                    <!-- Textarea -->
-                    <div class="control-group">
-                      <label class="control-label" for="id_resultados">Resultados logrados</label>
-                      <div class="controls">                     
-                        <textarea id="id_resultados" name="id_resultados" class="form-control"></textarea><br><br><br>
-                      </div>
+                        <!-- Textarea -->
+                        <div class="control-group">
+                          <label class="control-label" for="id_resultados">Resultados logrados</label>
+                          <div class="controls">                     
+                            <textarea id="id_resultados" name="id_resultados" class="form-control"></textarea>
+                          </div>
+                        </div>
                     </div>
+                <!--Fin textarea-->
+                </div>
+                <div class="row">
+                   <button class="btn btn-primary pull-right">
+                         Guardar
+                   </button>
                 </div>
             </div>
         </div>
@@ -94,13 +102,16 @@
         </script>
 
         <script type="text/template" id="container-dimension-tutoria-template">
-            <%- dimension %>
-            <ul id="lista-factores-dimension-<%- iddimension %>"> </ul>
+           <div id="lista-factores-dimension-<%- iddimension %>" class="container-fluid" >
+            </div>
 
         </script>
 
         <script type="text/template" id="factor-tutoria-template">
+             <label>  
+               <input type="checkbox" value="">
                <%- factor %>
+             </label>
         </script>
         
         <script type="text/template" id="login-template">
@@ -953,6 +964,7 @@
         <script src="js/vendor/jquery.backstretch.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/vendor/checked-list-group.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

@@ -810,7 +810,8 @@ TUTORIAS.views.containerDimensionTutoriaIndividual = Backbone.View.extend({
 });
 
 TUTORIAS.views.factorDimension = Backbone.View.extend({
-    tagName : 'li',
+    tagName : 'div',
+    className : 'checkbox',
     template : _.template($("#factor-tutoria-template").html()),
     render : function(){
         console.log(this.model);
