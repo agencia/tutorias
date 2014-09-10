@@ -1043,5 +1043,21 @@
         "id" : 14,
         "tutor" : "José Ramos"
     }
+],
+"solicitudes" : [
+    "alumnos" :[
+        {
+            "idsolicitud": 1,
+            "matricula": "UP100180",
+            "fecha": "2014-09-15"
+        },
+        {
+            "idsolicitud": 2,
+            "matricula": "UP130540",
+            "fecha": "2014-09-16"
+        }
+    ],
+    "grupos" :[]
+    
 ]
 }
