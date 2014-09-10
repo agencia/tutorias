@@ -828,8 +828,9 @@ TUTORIAS.views.TutoriaGrupal = Backbone.View.extend({
     template: _.template($("#tutoriaGrupal-template").html()),
     initialize: function(options) {
         self = this;
-        this.idgrupo = options.idgrupo;
-        this.modelgrupo = TUTORIAS.collections.enProceso.grupos.findWhere({idgrupo:123123});
+        this.idgrupo = parseInt(options.idgrupo);
+        console.log(options);
+        this.modelgrupo = TUTORIAS.collections.enProceso.grupos.findWhere({idgrupo:this.idgrupo});
         console.log(this.idgrupo + "HOLA");
         this.dimensionesFactores = TUTORIAS.collections.dimensionesFactores.where({tipo : 'Tutoría Grupal'});
         console.log(this.dimensionesFactores);        
@@ -848,8 +849,8 @@ TUTORIAS.views.TutoriaGrupal = Backbone.View.extend({
         var view_container = new TUTORIAS.views.containerDimensionTutoriaGrupal({model:dimension});
         var dim = dimension;
 
-        this.$("#lista-dimensiones-tutoria-individual").append(view_menu.render().el);
-        this.$("#container-dimensiones-tutoria-individual").append(view_container.render().el);
+        this.$("#lista-dimensiones-tutoria-grupal").append(view_menu.render().el);
+        this.$("#container-dimensiones-tutoria-grupal").append(view_container.render().el);
 
         _.each(dim.get("factores"), self.agregarFactor);
 
