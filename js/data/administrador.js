@@ -1049,11 +1049,13 @@
         {
             "idsolicitud": 1,
             "matricula": "UP100180",
+            "solicitante": "Esteban Dávalos",
             "fecha": "2014-09-15"
         },
         {
             "idsolicitud": 2,
             "matricula": "UP130540",
+            "solicitante": "Juan José Palacios Martínez",
             "fecha": "2014-09-16"
         }
     ]

@@ -1041,7 +1041,9 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "dimension/editar/:iddimension" : "editarDimension",
         "factor/editar/:idfactor" : "editarFactor",
         "aplicar_tutoria/alumno/:matricula": "aplicarTutoria",
-        "tutoria/grupo/:idgrupo" : "aplicarTutoriaGrupal"
+        "tutoria/grupo/:idgrupo" : "aplicarTutoriaGrupal",
+        "solicitantes/alumnos/:idsolicitud" : "solicitudAlumnos",
+        "solicitantes/grupos/:idsolicitud" : "solicitudGrupos"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
@@ -1085,7 +1087,8 @@ window.TUTORIAS.router = Backbone.Router.extend({
     },
     aplicarTutoriaGrupal : function(idgrupo) {
         TUTORIAS.app = new TUTORIAS.views.TutoriaGrupal({idgrupo:idgrupo});
-    }
+    },
+    
 
 });
 
