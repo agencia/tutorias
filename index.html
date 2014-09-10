@@ -94,6 +94,10 @@
             </div>
         </div>
         </script>
+
+        <script type="text/template" id="tutoriaGrupal-template">
+            <div> HOLA </div>
+        </script>
         
         <script type="text/template" id="menu-dimension-tutoria-template">
                   <a href="#<%- iddimension %>" role="tab" data-toggle="tab">
@@ -455,7 +459,7 @@
             <a data-toogle="tooltip" data-placement="bottom"  title="Solicitar tutoría para alumno" href="#/solicitar/alumno/<%- matricula %>" class="glyphicon glyphicon-link glyphicon-lg tooltips solicitar"></a>
             <% if(TUTORIAS.token != 'docente') { %>
             <% if(TUTORIAS.token != 'tutor') { %>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Aplicar tutoria" href="#/aplicar_tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips" ></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Aplicar tutoría" href="#/aplicar_tutoria/alumno/<%- matricula %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips" ></a> 
             <%}%>
             <a data-toogle="tooltip" data-placement="right"  title="Historial"  href="#/historial/alumno/<%- matricula %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
             <%}%>
@@ -478,10 +482,10 @@
             <td><%- grupo %></td>
             <td><%- ultima %></td>
             <td>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Opcion 1" href="#/solicitar/grupo/<%- idgrupo %>" class="glyphicon glyphicon-link glyphicon-lg tooltips solicitar"></a>
+            <a data-toogle="tooltip" data-placement="bottom"  title="Solicitar tutoría para grupo" href="#/solicitar/grupo/<%- idgrupo %>" class="glyphicon glyphicon-link glyphicon-lg tooltips solicitar"></a>
             <% if(TUTORIAS.token != 'docente') { %>
             <% if(TUTORIAS.token != 'tutor') { %>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Opción 2" href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Aplicar tutoría" href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-comment glyphicon-lg tooltips"></a> 
             <%}%>
             <a data-toogle="tooltip" data-placement="bottom"  title="Opcion 3" href="#/tutoria/grupo/<%- idgrupo %>" class="glyphicon glyphicon-floppy-disk glyphicon-lg tooltips"></a>
             <%}%>

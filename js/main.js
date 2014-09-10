@@ -820,6 +820,73 @@ TUTORIAS.views.factorDimension = Backbone.View.extend({
     }
 });
 
+TUTORIAS.views.TutoriaGrupal = Backbone.View.extend({
+    el: $("#app"),
+    idgrupo : null,
+    iddimension : null,
+    self : this,
+    template: _.template($("#tutoriaGrupal-template").html()),
+    initialize: function(options) {
+        self = this;
+        this.idgrupo = options.idgrupo;
+        this.modelgrupo = TUTORIAS.collections.enProceso.grupos.findWhere({idgrupo:123123});
+        console.log(this.idgrupo + "HOLA");
+        this.dimensionesFactores = TUTORIAS.collections.dimensionesFactores.where({tipo : 'Tutoría Grupal'});
+        console.log(this.dimensionesFactores);        
+        this.render();
+        _.each(this.dimensionesFactores,this.agregarDimension);
+    },
+    render: function() {
+        console.log(this.modelgrupo);
+        this.$el.html(this.template({grupo : this.modelgrupo.toJSON()}));
+    },
+    agregarDimension:function(dimension){
+
+        self.iddimension = dimension.get("iddimension"); 
+
+        var view_menu = new TUTORIAS.views.menuDimensionTutoriaGrupal({model:dimension});
+        var view_container = new TUTORIAS.views.containerDimensionTutoriaGrupal({model:dimension});
+        var dim = dimension;
+
+        this.$("#lista-dimensiones-tutoria-individual").append(view_menu.render().el);
+        this.$("#container-dimensiones-tutoria-individual").append(view_container.render().el);
+
+        _.each(dim.get("factores"), self.agregarFactor);
+
+    },
+    agregarFactor:function(factor){
+       var view_factor = new TUTORIAS.views.factorDimension ({model:factor});
+       console.log(self.iddimension);
+       var div = "#lista-factores-dimension-" + self.iddimension;
+       console.log(div);
+       this.$(div).append(view_factor.render().el);
+
+    }
+});
+
+TUTORIAS.views.menuDimensionTutoriaGrupal = Backbone.View.extend({
+    tagName : 'li',
+    template : _.template($("#menu-dimension-tutoria-template").html()),
+    render : function(){
+        //console.log(this.model.toJSON());
+        this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
+TUTORIAS.views.containerDimensionTutoriaGrupal = Backbone.View.extend({
+    tagName : 'div',
+    className: 'tab-pane',
+    template : _.template($("#container-dimension-tutoria-template").html()),
+    render : function(){
+        //console.log(this.model.toJSON());
+       $(this.el).attr('id', this.model.toJSON().iddimension ) ;
+       this.$el.html(this.template(this.model.toJSON()));
+        return this;
+    }
+});
+
+
 ////////// MODELOS ////////
 window.TUTORIAS.models.menu = Backbone.Model.extend({
 });
@@ -972,7 +1039,8 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "dimension/factores/:iddimension" : "factoresDimension",
         "dimension/editar/:iddimension" : "editarDimension",
         "factor/editar/:idfactor" : "editarFactor",
-        "aplicar_tutoria/alumno/:matricula": "aplicarTutoria"
+        "aplicar_tutoria/alumno/:matricula": "aplicarTutoria",
+        "tutoria/grupo/:idgrupo" : "aplicarTutoriaGrupal"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
@@ -1013,6 +1081,9 @@ window.TUTORIAS.router = Backbone.Router.extend({
     },
     aplicarTutoria: function(matricula) {
         TUTORIAS.app = new TUTORIAS.views.Tutoria({matricula:matricula});
+    },
+    aplicarTutoriaGrupal : function(idgrupo) {
+        TUTORIAS.app = new TUTORIAS.views.TutoriaGrupal({idgrupo:idgrupo});
     }
 
 });
