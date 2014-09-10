@@ -1044,7 +1044,7 @@
         "tutor" : "José Ramos"
     }
 ],
-"solicitudes" : [
+"solicitudes" : {
     "alumnos" :[
         {
             "idsolicitud": 1,
@@ -1057,5 +1057,5 @@
             "fecha": "2014-09-16"
         }
     ]
-]
+}
 }
