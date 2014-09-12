@@ -665,5 +665,36 @@
         "id" : 14,
         "tutor" : "José Ramos"
     }
-]
+],
+"solicitudes" : {
+    "alumnos" :[
+        {
+            "idsolicitud": 1,
+            "matricula": "UP100180",
+            "solicitante": "Esteban Dávalos",
+            "fecha": "2014-09-15"
+        },
+        {
+            "idsolicitud": 2,
+            "matricula": "UP130540",
+            "solicitante": "Juan José Palacios Martínez",
+            "fecha": "2014-09-16"
+        }
+    ]
+  ,
+    "grupos" : [
+        {
+            "idsolicitud": 1,
+            "grupo": "3A",
+            "carrera": "MEC",
+            "fecha": "2014-09-20"
+        },
+        {
+            "idsolicitud": 2,
+            "grupo": "6A",
+            "carrera": "ISEI",
+            "fecha": "2014-09-17"
+        }
+    ]
+  }
 }
