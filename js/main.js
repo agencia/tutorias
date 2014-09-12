@@ -10,8 +10,9 @@ window.TUTORIAS = {
         posibleUsuario:{},
         dimension:{},
         factor:{},
-        dimensionFactores:{}
-        
+        dimensionFactores:{},
+        solicitudes: {}
+
     },
     collections: {
         enProceso: {},
@@ -21,7 +22,8 @@ window.TUTORIAS = {
         posiblesUsuarios:{},
         dimensiones:{},
         factores:{},
-        dimensionesFactores:{}
+        dimensionesFactores:{},
+        solicitudes: {}
     },
     token: null
 };
@@ -887,6 +889,79 @@ TUTORIAS.views.containerDimensionTutoriaGrupal = Backbone.View.extend({
     }
 });
 
+TUTORIAS.views.SolicitudAlumnos = Backbone.View.extend({
+    el: $("#app"),
+    template: _.template($("#solicitud-alumnos-template").html()),
+    events: {
+    },
+    initialize: function() {
+        this.render();
+        TUTORIAS.collections.solicitudes.alumnos.each(this.agregarAlumno, this);
+    },
+    buscarAlumno: function() {
+        var filtro = $("#buscar-alumno").val();
+    },
+    agregarAlumno: function(alumno) {
+        //console.log(alumno.toJSON());
+        var view = new TUTORIAS.views.SolicitudAlumno({model: alumno});
+        this.$("#table-solicitudes-alumnos > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
+    },
+    render: function() {
+        this.$el.html(this.template());
+    }
+});
+
+TUTORIAS.views.SolicitudAlumno = Backbone.View.extend({
+    tagName: "tr",
+    className: 'primary',
+    template: _.template($("#solicitud-alumno-template").html()),
+    initialize: function() {
+        this.listenTo(this.model, 'change', this.render);
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+
+        return this;
+    }
+});
+
+TUTORIAS.views.SolicitudGrupos = Backbone.View.extend({
+    el: $("#app"),
+    template: _.template($("#solicitud-grupos-template").html()),
+    events: {
+    },
+    initialize: function() {
+        this.render();
+        TUTORIAS.collections.solicitudes.grupos.each(this.agregarGrupo, this);
+    },
+    buscarGrupo: function() {
+        var filtro = $("#buscar-grupo").val();
+    },
+    agregarGrupo: function(grupo) {
+        console.log(parseInt(grupo));
+        var view = new TUTORIAS.views.SolicitudGrupo({model: grupo});
+        this.$("#table-solicitudes-grupos > tbody").append(view.render().el);
+        $(".tooltips").tooltip();
+    },
+    render: function() {
+        this.$el.html(this.template());
+    }
+});
+
+TUTORIAS.views.SolicitudGrupo = Backbone.View.extend({
+    tagName: "tr",
+    className: 'primary',
+    template: _.template($("#solicitud-grupo-template").html()),
+    initialize: function() {
+        this.listenTo(this.model, 'change', this.render);
+    },
+    render: function() {
+        this.$el.html(this.template(this.model.toJSON()));
+
+        return this;
+    }
+});
 
 ////////// MODELOS ////////
 window.TUTORIAS.models.menu = Backbone.Model.extend({
@@ -916,6 +991,28 @@ window.TUTORIAS.collections.usuarios = new (Backbone.Collection.extend({
 window.TUTORIAS.models.posibleUsuario = Backbone.Model.extend({
    
 });
+
+window.TUTORIAS.models.solicitudes.alumno = Backbone.Model.extend({
+   
+});
+
+window.TUTORIAS.collections.solicitudes.alumnos = new (Backbone.Collection.extend({
+    // Reference to this collection's model.
+    model: TUTORIAS.models.solicitudes.alumno
+
+}));
+
+window.TUTORIAS.models.solicitudes.grupo = Backbone.Model.extend({
+   
+});
+
+window.TUTORIAS.collections.solicitudes.grupos = new (Backbone.Collection.extend({
+    // Reference to this collection's model.
+    model: TUTORIAS.models.solicitudes.grupo
+
+}));
+
+
 window.TUTORIAS.collections.posiblesUsuarios = new (Backbone.Collection.extend({
     // Reference to this collection's model.
     model: TUTORIAS.models.posibleUsuario,
@@ -1042,8 +1139,8 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "factor/editar/:idfactor" : "editarFactor",
         "aplicar_tutoria/alumno/:matricula": "aplicarTutoria",
         "tutoria/grupo/:idgrupo" : "aplicarTutoriaGrupal",
-        "solicitantes/alumnos/:idsolicitud" : "solicitudAlumnos",
-        "solicitantes/grupos/:idsolicitud" : "solicitudGrupos"
+        "solicitudes/alumnos" : "solicitudAlumnos",
+        "solicitudes/grupos" : "solicitudGrupos"
     },
     home: function() {
         TUTORIAS.app = new TUTORIAS.views.Layout();
@@ -1088,7 +1185,14 @@ window.TUTORIAS.router = Backbone.Router.extend({
     aplicarTutoriaGrupal : function(idgrupo) {
         TUTORIAS.app = new TUTORIAS.views.TutoriaGrupal({idgrupo:idgrupo});
     },
-    
+    solicitudAlumnos : function() {
+        TUTORIAS.app = new TUTORIAS.views.SolicitudAlumnos();
+        this.nav("solicitudes");
+    },
+    solicitudGrupos : function() {
+        TUTORIAS.app = new TUTORIAS.views.SolicitudGrupos();
+        this.nav("solicitudes");
+    }
 
 });
 
@@ -1119,6 +1223,9 @@ $(function() {
             TUTORIAS.collections.dimensiones.add(data.dimensiones);
             TUTORIAS.collections.factores.add(data.factores);
             TUTORIAS.collections.dimensionesFactores.add(data.dimensionesFactores);
+            TUTORIAS.collections.solicitudes.alumnos.add(data.solicitudes.alumnos);
+            TUTORIAS.collections.solicitudes.grupos.add(data.solicitudes.grupos);
+            console.log(data.solicitudes.grupos);
 
             new TUTORIAS.router();
             Backbone.history.start();

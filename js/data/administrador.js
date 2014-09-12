@@ -15,7 +15,7 @@
     {
         "idPersona" : 3,
         "nombre" : "Adrián Abrego",
-        "activo" : "ACTIVO",
+        "activo" : "ACTIVO",  
         "nivel_usuario": "ADMINISTRADOR"
     }
 ],
@@ -548,6 +548,14 @@
                         ]
          }
 },
+{"menu" : {
+            "menu" : "solicitudes",
+            "submenus": [
+                            {"submenu" : "alumnos"},
+                            {"submenu" : "grupos"}
+                        ]
+          }
+},
 {"menu":"dimensiones"}],
         "carreras" : [
                     {"idcarrera":1,
@@ -1059,5 +1067,20 @@
             "fecha": "2014-09-16"
         }
     ]
-}
+  ,
+    "grupos" : [
+        {
+            "idsolicitud": 1,
+            "grupo": "3A",
+            "carrera": "MEC",
+            "fecha": "2014-09-20"
+        },
+        {
+            "idsolicitud": 2,
+            "grupo": "6A",
+            "carrera": "ISEI",
+            "fecha": "2014-09-17"
+        }
+    ]
+  }
 }
