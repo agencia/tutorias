@@ -760,9 +760,41 @@
             <td><%- fecha %></td>
             <% if(TUTORIAS.token == 'administrador') { %>
             <td>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Editar información de alumno" href="#editar/alumno<%- matricula %>" class="glyphicon glyphicon-pencil glyphicon-lg tooltips editar-alumno"></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Canalizar alumno" href="#/canalizar/alumno/<%- matricula %>" class="glyphicon glyphicon-link glyphicon-lg tooltips canalizar-alumno"></a> 
             </td>
             <%}%>
+        </script>
+
+        <script type="text/template" id="solicitud-alumno-form-template">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Tutor</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Alfredo Esteban Hernández Dávalos</th>
+                        <th>17-09-2014</th>
+                    </tr>
+                    <tr>
+                        <th>Fernando Ulises Medrano</th>
+                        <th>20-09-2014</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="helper-while-saving hide"></div>
+        </script>
+        <script type="text/template" id="solicitud-alumno-footer-template">
+            <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
+            <button class="btn btn-success btnok" >Solicitar</button>
+            <div class="hide saving-label bg-primary">Guardando <img src="img/ajax-loader-white.gif" /></div>
+            <div class="hide ok-saving-label bg-info">
+            La solicitud se ha enviado correctamente
+            <button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Aceptar</button>
+            </div>
         </script>
 
         <script type="text/template" id="solicitud-grupos-template">
@@ -804,9 +836,40 @@
             <td><%- fecha %></td>
             <% if(TUTORIAS.token == 'administrador') { %>
             <td>
-            <a data-toogle="tooltip" data-placement="bottom"  title="Editar información de grupo" href="#editar/alumno<%- grupo %>" class="glyphicon glyphicon-pencil glyphicon-lg tooltips editar-alumno"></a> 
+            <a data-toogle="tooltip" data-placement="bottom"  title="Canalizar grupo" href="#/canalizar/grupo/<%- grupo %>" class="glyphicon glyphicon-link glyphicon-lg tooltips canalizar-grupo"></a>
             </td>
             <%}%>
+        </script>
+
+        <script type="text/template" id="solicitud-grupo-form-template">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Tutor</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Alfredo Esteban Hernández Dávalos</th>
+                        <th>17-09-2014</th>
+                    </tr>
+                    <tr>
+                        <th>Fernando Ulises Medrano</th>
+                        <th>20-09-2014</th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="helper-while-saving hide"></div>
+        </script>
+        <script type="text/template" id="solicitud-grupo-footer-template">
+            <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
+            <button class="btn btn-success btnok" >Solicitar</button>
+            <div class="hide saving-label bg-primary">Guardando <img src="img/ajax-loader-white.gif" /></div>
+            <div class="hide ok-saving-label bg-info">
+            La solicitud se ha enviado correctamente
+            <button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Aceptar</button>
+            </div>
         </script>
 
         <script type="text/template" id="usuario-template">

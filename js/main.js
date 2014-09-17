@@ -912,6 +912,8 @@ TUTORIAS.views.SolicitudAlumnos = Backbone.View.extend({
     }
 });
 
+
+// Modal de editar informacion de alumno en solicitudes/alumno.
 TUTORIAS.views.SolicitudAlumno = Backbone.View.extend({
     tagName: "tr",
     className: 'primary',
@@ -919,12 +921,54 @@ TUTORIAS.views.SolicitudAlumno = Backbone.View.extend({
     initialize: function() {
         this.listenTo(this.model, 'change', this.render);
     },
+    events:{
+    'click .canalizar-alumno' : 'canalizarAlumno'
+    },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-
         return this;
+    },
+    canalizarAlumno:function(e){
+        e.preventDefault();
+        new TUTORIAS.views.canalizarAlumno({model:this.model});
     }
 });
+
+TUTORIAS.views.canalizarAlumno = Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#solicitud-alumno-form-template").html()),
+    templateFooter: _.template($("#solicitud-alumno-footer-template").html()),
+    modal:{
+        title : 'Canalizar Alumno'
+    },
+    events: {
+        'click .btnok' : 'canalizaAlumno'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        this.modal.body = this.templateBody({dimension: this.model.toJSON()});
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    canalizaAlumno:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$("textarea").hide();
+        this.$(".helper-while-saving").html("Informacion nueva dimension...").removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
+    }
+});
+
+
+//Termina modal de alumnos
 
 TUTORIAS.views.SolicitudGrupos = Backbone.View.extend({
     el: $("#app"),
@@ -939,7 +983,6 @@ TUTORIAS.views.SolicitudGrupos = Backbone.View.extend({
         var filtro = $("#buscar-grupo").val();
     },
     agregarGrupo: function(grupo) {
-        console.log(parseInt(grupo));
         var view = new TUTORIAS.views.SolicitudGrupo({model: grupo});
         this.$("#table-solicitudes-grupos > tbody").append(view.render().el);
         $(".tooltips").tooltip();
@@ -956,10 +999,49 @@ TUTORIAS.views.SolicitudGrupo = Backbone.View.extend({
     initialize: function() {
         this.listenTo(this.model, 'change', this.render);
     },
+    events:{
+    'click .canalizar-grupo' : 'canalizarGrupo'
+    },
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
-
         return this;
+    },
+    canalizarGrupo:function(e){
+        e.preventDefault();
+        new TUTORIAS.views.canalizarGrupo({model:this.model});
+    }
+});
+
+TUTORIAS.views.canalizarGrupo = Backbone.View.extend({
+    el: $("#mod"),
+    template: _.template($("#modal-template").html()),
+    templateBody: _.template($("#solicitud-grupo-form-template").html()),
+    templateFooter: _.template($("#solicitud-grupo-footer-template").html()),
+    modal:{
+        title : 'Canalizar Grupo'
+    },
+    events: {
+        'click .btnok' : 'canalizaGrupo'
+    },
+    initialize : function(){
+        this.render();
+    },
+    render : function(){
+        this.modal.body = this.templateBody({dimension: this.model.toJSON()});
+        this.modal.footer = this.templateFooter();
+        this.$el.html(this.template({modal:this.modal}));
+        this.$("#myModal").modal('show');
+    },
+    canalizaGrupo:function(){
+        //this.$("#myModal").modal('hide');
+        this.$(".modal-footer > .btn").hide();
+        this.$("textarea").hide();
+        this.$(".helper-while-saving").html("Informacion nueva dimension...").removeClass("hide");
+        this.$("div.saving-label").removeClass("hide");
+        setTimeout(function(){
+            this.$("div.saving-label").hide();
+            this.$("div.ok-saving-label").removeClass("hide");
+        },5000);
     }
 });
 
@@ -1140,6 +1222,7 @@ window.TUTORIAS.router = Backbone.Router.extend({
         "aplicar_tutoria/alumno/:matricula": "aplicarTutoria",
         "tutoria/grupo/:idgrupo" : "aplicarTutoriaGrupal",
         "solicitudes/alumnos" : "solicitudAlumnos",
+        "canalizar/alumno/:matricula" : "editarSolicitudAlumno",
         "solicitudes/grupos" : "solicitudGrupos"
     },
     home: function() {
